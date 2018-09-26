@@ -8,9 +8,10 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", help_path
     assert_select "a[href=?]", about_path
     assert_select "a[href=?]", contact_path
-    get contact_path
-    assert_select "title", full_title("Contact")
-    get signup_path
-    assert_select "title", full_title("Sign up")
+    #以下　slackより演習問題は削除
+    #get contact_path
+    #assert_select "title", full_title("Contact")
+    #get signup_path
+    #assert_select "title", full_title("Sign up")
   end
 end
