@@ -23,6 +23,9 @@ body {
 }
 .jumbotron{
     background-color: transparent;
+    h1{
+      color: #A9E2F3;
+    }
 }
 
 
@@ -75,6 +78,11 @@ p {
 
 
 /* header */
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #FE2E64;
+}
+
 .navbar {
 background: #F5A9F2;
 }

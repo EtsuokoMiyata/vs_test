@@ -6,7 +6,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_template 'static_pages/home'
     assert_select "a[href=?]", root_path, count: 2
     assert_select "a[href=?]", help_path
-    assert_select "a[href=?]", about_path
+    #assert_select "a[href=?]", about_path
     assert_select "a[href=?]", contact_path
     
     #以下　演習問題でslack情報より一旦削除したが　test通ったので復活
