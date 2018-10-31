@@ -17,7 +17,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   test "should get help" do
     get help_path
     assert_response :success
-    assert_select "title", "Help | #{@base_title}"
+    assert_select "title", "お気に入り | #{@base_title}"
   end
   
   test "should get about" do
@@ -29,7 +29,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
    test "should get contact" do
     get contact_path
     assert_response :success
-    assert_select "title", "Contact | Figure Skating App"
+    assert_select "title", "管理人 | Figure Skating App"
   end
 
 end

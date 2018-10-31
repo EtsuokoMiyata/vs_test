@@ -24,7 +24,7 @@ body {
 .jumbotron{
     background-color: transparent;
     h1{
-      color: #A9E2F3;
+      color: #0101DF;
     }
 }
 
@@ -99,6 +99,11 @@ background: #F5A9F2;
    background-color: #F5A9F2;
  }
 }
+
+.dropdown-menu > li > a{
+  color: #FE2E64;
+}
+
 
 .caret{
  background-color: #F5A9F2;

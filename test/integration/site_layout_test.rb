@@ -11,7 +11,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     
     #以下　演習問題でslack情報より一旦削除したが　test通ったので復活
     get contact_path                              #演習問題
-    assert_select "title", full_title("Contact")  #演習問題
+    assert_select "title", full_title("管理人")  #演習問題
     get signup_path                               #演習問題
     assert_select "title", full_title("Sign up")  #演習問題
   end
