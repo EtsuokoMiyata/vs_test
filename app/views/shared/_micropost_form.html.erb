@@ -1,7 +1,7 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+    <%= f.text_area :content, placeholder: "投稿内容を記入してください。" %>
   </div>
   <%= f.submit "送信", class: "btn btn-primary" %>
   <span class="picture">
