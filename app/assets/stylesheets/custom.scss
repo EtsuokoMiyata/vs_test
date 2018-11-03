@@ -60,6 +60,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+  color:#0101DF;
 }
 
 h2 {
@@ -76,6 +77,16 @@ p {
   line-height: 1.7em;
 }
 
+.favorite {
+  td {
+  text-align: center;
+  color:#0101DF;
+  }
+}
+
+big{
+  color:#0101DF;
+}
 
 /* header */
 
@@ -109,6 +120,11 @@ background: #F5A9F2;
  background-color: #F5A9F2;
 }
 
+.now_time{
+  color: #FE2E64;
+  text-align: right
+}
+
 #logo {
   float: left;
   margin-right: 10px;
@@ -123,6 +139,7 @@ background: #F5A9F2;
     text-decoration: none;
   }
 }
+
 
 
 /* footer */
@@ -206,7 +223,7 @@ aside {
     float: left;
     padding: 0 10px;
     border-left: 1px solid $gray-lighter;
-    color: gray;
+    color: #000000;
     &:first-child {
       padding-left: 0;
       border: 0;

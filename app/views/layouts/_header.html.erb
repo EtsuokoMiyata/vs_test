@@ -1,6 +1,11 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
     <%= link_to "figure skating app", root_path, id: "logo" %>
+    
+    <div class="now_time">
+      <%= "今日は、#{now_time.month}月#{now_time.day}日です。" %>
+    </div>
+    
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "ホーム", root_path %></li>

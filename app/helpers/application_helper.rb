@@ -1,4 +1,8 @@
 module ApplicationHelper
+  require "date"   #Dateクラスを使えるようにする
+  def now_time
+    @now = Date.today  #Date.today(今日の日付)を変数todayに代入する
+  end
 
   # ページごとの完全なタイトルを返します。                   # コメント行
   def full_title(page_title = '')                     # メソッド定義とオプション引数
