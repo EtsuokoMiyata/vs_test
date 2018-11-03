@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
   
   def index
-    @users = User.paginate(page: params[:page])
+     @users = User.paginate(page: params[:page])
   end
   
   def show
@@ -47,14 +47,14 @@ class UsersController < ApplicationController
   end
   
   def following
-    @title = "Following"
+    @title = "フォロー"
     @user  = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
-    @title = "Followers"
+    @title = "フォロワー"
     @user  = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
