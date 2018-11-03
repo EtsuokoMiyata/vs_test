@@ -13,7 +13,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     get contact_path                              #演習問題
     assert_select "title", full_title("管理人")  #演習問題
     get signup_path                               #演習問題
-    assert_select "title", full_title("Sign up")  #演習問題
+    assert_select "title", full_title("サインアップ")  #演習問題
   end
   
   #以下　演習問題10.3.1.1 ログイン済みユーザーとそうでないユーザーのそれぞれに対して、正しい振る舞い
