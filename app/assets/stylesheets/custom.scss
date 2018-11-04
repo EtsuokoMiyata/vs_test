@@ -55,6 +55,18 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
+.search_form {
+  overflow: auto;
+  margin: 10px;
+  float: right;
+  border-color: #204d74;
+}
+
+input[type="submit"] {
+    background-color: #337ab7;
+    color:#FFFFFF;
+}
+
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
@@ -256,8 +268,9 @@ aside {
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
+input,textarea, select, .uneditable-input {
+  border: 1px solid #204d74;
+  
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
