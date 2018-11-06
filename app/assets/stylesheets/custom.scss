@@ -81,7 +81,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $gray-light;
+  color: #0101DF;
 }
 
 p {
@@ -94,7 +94,12 @@ p {
   text-align: center;
   color:#0101DF;
   }
+  .note{
+    text-align: left;
+    }
 }
+
+
 
 big{
   color:#0101DF;
@@ -159,10 +164,10 @@ background: #F5A9F2;
 footer {
   margin-top: 45px;
   padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
+  border-top: 1px solid #0101DF;
+  color: #0101DF;
   a {
-  color: #555;
+  color: #0101DF;
     &:hover {
       color: #222;
     }
