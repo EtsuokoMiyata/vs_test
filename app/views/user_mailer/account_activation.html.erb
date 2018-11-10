@@ -3,7 +3,7 @@
 <p>こんにちは <%= @user.name %>さん</p>
 
 <p>
-ようこそFIGURE SKATING APPへ! 下のリンクをクリックしてアカウントを有効にしてください。:
+ようこそFIGURE SKATING APPへ! 下のリンクをクリックしてアカウントを有効にしてください。
 </p>
 
 <%= link_to "アカウントの有効化", edit_account_activation_url(@user.activation_token,
