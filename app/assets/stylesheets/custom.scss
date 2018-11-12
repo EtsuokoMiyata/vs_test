@@ -15,7 +15,7 @@ $gray-medium-light: #eaeaea;
 /* universal */
 
 body {
-    background-image: url("miyahara.jpg");
+    background-image: url("zagitowa7.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -93,6 +93,8 @@ p {
 }
 
 .favorite {
+  width: 100%;
+  font-size: 1.5em;
   td {
   text-align: center;
   color:#0101DF;
@@ -100,6 +102,14 @@ p {
   .note{
     text-align: left;
     }
+}
+
+.cuntry{
+  width: 100px;
+}
+
+.name{
+  width: 330px;
 }
 
 
