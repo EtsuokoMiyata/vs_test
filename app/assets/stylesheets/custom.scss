@@ -22,10 +22,10 @@ body {
     background-size: cover;
 }
 .jumbotron{
-    background-color: transparent;
-    h1{
+    background-color: #eeeeee;
+    /* h1{
       color: #0101DF;
-    }
+    }*/
 }
 
 
@@ -84,7 +84,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: #0101DF;
+  /* color: #0101DF; */
 }
 
 p {
@@ -121,12 +121,12 @@ big{
 /* header */
 
 .navbar-inverse .navbar-nav > li > a {
-    color: #FE2E64;
+    color: #FFFFFF;
 }
 
 .navbar {
-background: #F5A9F2;
-border-color: #F5A9F2;
+background: #000000;
+border-color: #000000;
 }
 
 .navbar-nav > .dropdown.open > a.dropdown-toggle {
