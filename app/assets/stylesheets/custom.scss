@@ -130,7 +130,7 @@ border-color: #000000;
 }
 
 .navbar-nav > .dropdown.open > a.dropdown-toggle {
- background-color: #F5A9F2;
+ background-color: #000000;
  ul{
    color: black;
  }
@@ -138,12 +138,12 @@ border-color: #000000;
 
 .dropdown{
  ul{
-   background-color: #F5A9F2;
+   background-color: #FFFFFF;
  }
 }
 
 .dropdown-menu > li > a{
-  color: #FE2E64;
+  color: #000000;
 }
 
 
@@ -152,7 +152,7 @@ border-color: #000000;
 }
 
 .now_time{
-  color: #FE2E64;
+  color: #FFFFFF;
   text-align: right
 }
 
@@ -160,7 +160,7 @@ border-color: #000000;
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #FE2E64;
+  color: #FFFFFF;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
