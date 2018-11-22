@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
   end
   
-  def show
+  def show  #ログイン画面から　paramsのidを取得する
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
   end

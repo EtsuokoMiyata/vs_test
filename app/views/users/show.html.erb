@@ -1,4 +1,17 @@
 <% provide(:title, @user.name) %>
+<!-- これより勤怠表示画面の　見出しheadline始まり -->
+
+<table border="1">
+  <tr>
+    <th>←</th><th>●年●月　時間管理表</th><th>→</th><th>指定勤務時間●:●</th><th colspan="2">●:●基本時間</th><th>初日●/●</th>
+  </tr>
+  <tr>
+    <td colspan="3">所属●</td><td>氏名：<%= @user.name %></td><td>コード</td><td>出勤日数●日</td><th>締日●/●</th>
+  </tr>
+</table>
+
+<!-- これより勤怠表示画面の　見出しheadline終わり -->
+
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
