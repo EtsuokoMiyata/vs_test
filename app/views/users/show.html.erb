@@ -3,10 +3,19 @@
 
 <table border="1">
   <tr>
-    <th>←</th><th>●年●月　時間管理表</th><th>→</th><th>指定勤務時間●:●</th><th colspan="2">●:●基本時間</th><th>初日●/●</th>
+    <th><%= link_to "←", signup_path, class: "btn btn-lg btn-primary" %></th>
+    <th><%= "#{now_time.year}年#{now_time.month}月 　時間管理表" %></th>
+    <th><%= link_to "→", signup_path, class: "btn btn-lg btn-primary" %></th>
+    <th>指定勤務時間●:●</th>
+    <th colspan="2">●:●基本時間</th>
+    <th><%= "初日#{now_time.beginning_of_month.strftime("%m/%d")}" %></th>
   </tr>
   <tr>
-    <td colspan="3">所属●</td><td>氏名：<%= @user.name %></td><td>コード</td><td>出勤日数●日</td><th>締日●/●</th>
+    <td colspan="3">所属●</td>
+    <td>氏名：<%= @user.name %></td>
+    <td>コード</td>
+    <td>出勤日数●日</td>
+    <th>締日<%= "#{now_time.end_of_month.strftime("%m/%d")}" %></th>
   </tr>
 </table>
 
