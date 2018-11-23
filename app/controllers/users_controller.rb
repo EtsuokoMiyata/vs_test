@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
   
+  require "date"   #Dateクラスを使えるよう
+  
   def index
      #@users = User.paginate(page: params[:page])
       @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
@@ -12,7 +14,12 @@ class UsersController < ApplicationController
   def show  #ログイン画面から　paramsのidを取得する
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+    #calendar #1か月分のカレンダー
   end
+  
+  
+  
+  
   
   def new
      @user = User.new
