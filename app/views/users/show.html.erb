@@ -27,7 +27,9 @@
     <th></th>
     <th></th>
     <th colspan="3">出社</th>
-    <th>退社</th>
+    <th colspan="3">退社</th>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>日付</td>
@@ -35,19 +37,31 @@
     <td>時</td>
     <td>分</td>
     <th>ボタンの表示</th>
+    <td>時</td>
+    <td>分</td>
+    <td></td>
     <th>在社時間</th>
     <th>備考</th>
   </tr>
-</table>
+
 <!-- これより勤怠表示画面の　1か月分カレンダー始まり -->
 <% require 'date' %>
-<% (Date.today.beginning_of_month..Date.today.end_of_month).each do |date| %>
-  <%= date.strftime("%m/%d") %><BR>
-  <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
-  <%= date.strftime("#{wd[date.wday]}") %><BR>
+<% @arrey.each do |date| %>
+  <tr>
+    <td><%= date.strftime("%m/%d") %></th>
+        <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
+    <td><%= date.strftime("#{wd[date.wday]}") %></th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
 <% end %>
-
-
+</table>
 
 
 

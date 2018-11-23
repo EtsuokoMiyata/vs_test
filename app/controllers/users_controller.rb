@@ -14,10 +14,16 @@ class UsersController < ApplicationController
   def show  #ログイン画面から　paramsのidを取得する
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
-    #calendar #1か月分のカレンダー
+    calendar #1か月分のカレンダー
   end
   
-  
+  def calendar #1か月分のカレンダー
+    #@arrey = %x(Date.today.beginning_of_month..Date.today.end_of_month)
+    @arrey=[]
+    (Date.today.beginning_of_month..Date.today.end_of_month).each do |date|
+     @arrey.push(date)
+    end
+  end
   
   
   
