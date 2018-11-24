@@ -2,9 +2,9 @@
 <!-- これより勤怠表示画面の　見出しheadline始まり -->
 <table border="1">
   <tr>
-    <th><%= link_to "←", signup_path, class: "btn btn-lg btn-primary" %></th>
+    <th><%= button_to "←", {controller: 'users', action: 'show'}, {method: :get,params: {button_name: 'last_month'}} %></th>
     <th><%= "#{now_time.year}年#{now_time.month}月 　時間管理表" %></th>
-    <th><%= link_to "→", signup_path, class: "btn btn-lg btn-primary" %></th>
+    <th><%= button_to "→", {controller: 'users', action: 'show'}, {method: :get,params: {button_name: 'next_month'}} %></th>
     <th>指定勤務時間●:●</th>
     <th colspan="3">●:●基本時間</th>
     <th><%= "初日#{now_time.beginning_of_month.strftime("%m/%d")}" %></th>
@@ -63,7 +63,7 @@
 <% end %>
 </table>
 
-
+<%= @b %>
 
 
 

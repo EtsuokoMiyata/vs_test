@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
     calendar #1か月分のカレンダー
+    @b = params[:button_name] #「←」「→」のどちらのボタンが押されたか
   end
   
   def calendar #1か月分のカレンダー
