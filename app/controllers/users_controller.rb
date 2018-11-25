@@ -16,22 +16,25 @@ class UsersController < ApplicationController
   def show  #ログイン画面から　paramsのidを取得する
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
-    calendar #1か月分のカレンダー
+    
     if params[:button_name] == nil
       @current_day = Date.today                         #現在の日時を取得
-      @first_day = Date.today.beginning_of_month.strftime("%m/%d")  
-      @last_day = Date.today.end_of_month.strftime("%m/%d")   
-      
+      @first_day = Date.today.beginning_of_month
+      @last_day = Date.today.end_of_month
+      calendar #1か月分のカレンダー
     else
       
        if params[:button_name] == "last_month"          #前月矢印が押された時
-          @first_day = Time.parse(params[:first_day]).prev_month.beginning_of_month.strftime("%m/%d") 
-          @last_day = Time.parse(params[:last_day]).prev_month.end_of_month.strftime("%m/%d") 
-          @current_day = Time.parse(params[:current_day]).prev_month
+          @first_day = Date.strptime(params[:first_day]).prev_month.beginning_of_month
+          @last_day = Date.strptime(params[:last_day]).prev_month.end_of_month
+          @current_day = Date.strptime(params[:current_day]).prev_month
+          
+          calendar #1か月分のカレンダー
         elsif params[:button_name] == "next_month"       #次月矢印が押された時 
-          @first_day = Time.parse(params[:first_day]).next_month.beginning_of_month.strftime("%m/%d")
-          @last_day = Time.parse(params[:last_day]).next_month.end_of_month.strftime("%m/%d") 
-          @current_day = Time.parse(params[:current_day]).next_month
+          @first_day = Date.strptime(params[:first_day]).next_month.beginning_of_month
+          @last_day = Date.strptime(params[:last_day]).next_month.end_of_month
+          @current_day = Date.strptime(params[:current_day]).next_month
+          calendar #1か月分のカレンダー
         else
        end
     end
@@ -39,10 +42,9 @@ class UsersController < ApplicationController
   
   
   def calendar #1か月分のカレンダー
-    #@arrey = %x(Date.today.beginning_of_month..Date.today.end_of_month)
-    @arrey=[]
-    (Date.today.beginning_of_month..Date.today.end_of_month).each do |date|
-     @arrey.push(date)
+    @arrey=Array.new
+    (@first_day..@last_day).each do |date|
+    @arrey.push(date)
     end
   end
 #--------------これまで勤怠表示画面------------------------  
