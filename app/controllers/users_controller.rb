@@ -22,7 +22,12 @@ class UsersController < ApplicationController
       @current_day = Date.today
     else
       #arrow_month　#←ボタンが押された時の表示　初日締日
-      @current_day = Time.parse(params[:first_day]).prev_month
+       if params[:button_name] == "last_month"
+          @current_day = Time.parse(params[:first_day]).prev_month
+       elsif params[:button_name] == "next_month" 
+          @current_day = Time.parse(params[:first_day]).next_month
+       else
+       end
     end
   end
   
