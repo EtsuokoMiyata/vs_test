@@ -18,42 +18,14 @@ class UsersController < ApplicationController
     @microposts = @user.microposts.paginate(page: params[:page])
     calendar #1か月分のカレンダー
     if params[:button_name] == nil
-      #current_month #当月の表示と初日締日
-      @current_day = Date.today
+      @current_day = Date.today                         #現在の日時を取得
     else
-      #arrow_month　#←ボタンが押された時の表示　初日締日
-       if params[:button_name] == "last_month"
+       if params[:button_name] == "last_month"          #前月矢印が押された時
           @current_day = Time.parse(params[:first_day]).prev_month
-       elsif params[:button_name] == "next_month" 
+       elsif params[:button_name] == "next_month"       #次月矢印が押された時 
           @current_day = Time.parse(params[:first_day]).next_month
        else
        end
-    end
-  end
-  
-  def current_month #当月の表示と初日締日
-    @current_day = Date.today
-    
-    #@year = Date.today.year
-    #@month = Date.today.month
-    #@first_day = Date.today.beginning_of_month
-    #@last_day = Date.today.end_of_month
-  end
-  
-  def arrow_month
-    if params[:button_name] == "last_month"
-      @current_day = @current_day.prev_month
-      #@year = (Date.today).prev_month.year
-      #@month = (Date.today).prev_month.month
-      #@first_day = (Date.today.beginning_of_month).prev_month
-      #@last_day = (Date.today.end_of_month).prev_month
-    elsif params[:button_name] == "next_month" 
-        @b = 1
-      #@year
-      #@month
-      #@first_day
-      #@last_day
-    else
     end
   end
   
