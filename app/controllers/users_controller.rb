@@ -19,12 +19,20 @@ class UsersController < ApplicationController
     calendar #1か月分のカレンダー
     if params[:button_name] == nil
       @current_day = Date.today                         #現在の日時を取得
+      @first_day = Date.today.beginning_of_month.strftime("%m/%d")  
+      @last_day = Date.today.end_of_month.strftime("%m/%d")   
+      
     else
+      
        if params[:button_name] == "last_month"          #前月矢印が押された時
-          @current_day = Time.parse(params[:first_day]).prev_month
-       elsif params[:button_name] == "next_month"       #次月矢印が押された時 
-          @current_day = Time.parse(params[:first_day]).next_month
-       else
+          @first_day = Time.parse(params[:first_day]).prev_month.beginning_of_month.strftime("%m/%d") 
+          @last_day = Time.parse(params[:last_day]).prev_month.end_of_month.strftime("%m/%d") 
+          @current_day = Time.parse(params[:current_day]).prev_month
+        elsif params[:button_name] == "next_month"       #次月矢印が押された時 
+          @first_day = Time.parse(params[:first_day]).next_month.beginning_of_month.strftime("%m/%d")
+          @last_day = Time.parse(params[:last_day]).next_month.end_of_month.strftime("%m/%d") 
+          @current_day = Time.parse(params[:current_day]).next_month
+        else
        end
     end
   end
