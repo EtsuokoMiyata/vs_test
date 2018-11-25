@@ -5,18 +5,53 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
   
   require "date"   #Dateクラスを使えるよう
+  require "time"   # Timeクラスを使えるよ
   
   def index
      #@users = User.paginate(page: params[:page])
       @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
   end
   
+  #-------------これより勤怠表示画面-------------------
   def show  #ログイン画面から　paramsのidを取得する
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
     calendar #1か月分のカレンダー
-    @b = params[:button_name] #「←」「→」のどちらのボタンが押されたか
+    if params[:button_name] == nil
+      #current_month #当月の表示と初日締日
+      @current_day = Date.today
+    else
+      #arrow_month　#←ボタンが押された時の表示　初日締日
+      @current_day = Time.parse(params[:first_day]).prev_month
+    end
   end
+  
+  def current_month #当月の表示と初日締日
+    @current_day = Date.today
+    
+    #@year = Date.today.year
+    #@month = Date.today.month
+    #@first_day = Date.today.beginning_of_month
+    #@last_day = Date.today.end_of_month
+  end
+  
+  def arrow_month
+    if params[:button_name] == "last_month"
+      @current_day = @current_day.prev_month
+      #@year = (Date.today).prev_month.year
+      #@month = (Date.today).prev_month.month
+      #@first_day = (Date.today.beginning_of_month).prev_month
+      #@last_day = (Date.today.end_of_month).prev_month
+    elsif params[:button_name] == "next_month" 
+        @b = 1
+      #@year
+      #@month
+      #@first_day
+      #@last_day
+    else
+    end
+  end
+  
   
   def calendar #1か月分のカレンダー
     #@arrey = %x(Date.today.beginning_of_month..Date.today.end_of_month)
@@ -25,7 +60,7 @@ class UsersController < ApplicationController
      @arrey.push(date)
     end
   end
-  
+#--------------これまで勤怠表示画面------------------------  
   
   
   def new

@@ -2,12 +2,12 @@
 <!-- これより勤怠表示画面の　見出しheadline始まり -->
 <table border="1">
   <tr>
-    <th><%= button_to "←", {controller: 'users', action: 'show'}, {method: :get,params: {button_name: 'last_month'}} %></th>
-    <th><%= "#{now_time.year}年#{now_time.month}月 　時間管理表" %></th>
+    <th><%= link_to '←', user_path(user_id: @user.id, button_name: 'next_month',first_day: @current_day) %></th>
+    <th><%= @current_day.strftime('%Y') %>年 <%= @current_day.strftime('%m') %>月 　時間管理表</th>
     <th><%= button_to "→", {controller: 'users', action: 'show'}, {method: :get,params: {button_name: 'next_month'}} %></th>
     <th>指定勤務時間●:●</th>
     <th colspan="3">●:●基本時間</th>
-    <th><%= "初日#{now_time.beginning_of_month.strftime("%m/%d")}" %></th>
+    <th>初日<%= @current_day.beginning_of_month.strftime("%m/%d") %></th>
   </tr>
   <tr>
     <td colspan="3">所属●</td>
@@ -15,7 +15,7 @@
     <td>コード</td>
     <td></td>
     <td>出勤日数●日</td>
-    <th>締日<%= "#{now_time.end_of_month.strftime("%m/%d")}" %></th>
+    <th>締日<%= @current_day.end_of_month.strftime("%m/%d") %></th>
   </tr>
 </table>
 <BR>
@@ -62,8 +62,8 @@
   </tr>
 <% end %>
 </table>
-
 <%= @b %>
+
 
 
 
