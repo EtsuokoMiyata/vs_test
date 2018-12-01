@@ -47,6 +47,13 @@ class UsersController < ApplicationController
     @arrey.push(date)
     end
   end
+  
+  def basic_info  #特定のユーザーの指定基本時間を表示する
+    @user = User.find_by(id: params[:id])
+  end
+  
+  
+  
 #--------------これまで勤怠表示画面------------------------  
   
   
