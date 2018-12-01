@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   get 'sessions/new'
   
- #get 'basic/basic_info'
 
   root 'static_pages#home'
   get  '/help',    to: 'static_pages#help'
@@ -16,9 +15,7 @@ Rails.application.routes.draw do
   post '/signup',  to: 'users#create' 
   
   
-  #get 'users/:id/basic', to: ‘users#basic’     #特定のユーザーの指定基本時間を表示するページ
-  #get 'users/:id/basic', to: 'users#basic'
-  get 'users/:id/basic', to: 'users#basic_info', as: 'basic'
+  get 'users/:id/basic', to: 'users#basic_info', as: 'basic'  #特定のユーザーの指定基本時間を表示するページ
   
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
   end
   
-  #-------------これより勤怠表示画面-------------------
+  #-------------これより勤怠表示画面↓-------------------
   def show  #ログイン画面から　paramsのidを取得する
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
@@ -50,11 +50,28 @@ class UsersController < ApplicationController
   
   def basic_info  #特定のユーザーの指定基本時間を表示する
     @user = User.find_by(id: params[:id])
+    
+    if @user.fixed_work_time.nil?               #指定勤務時間
+      @fixed_time = "--:--"                     #データがないときとの初期値
+    else
+      @fixed_time = @user.fixed_work_time       #データがあるときに　フィールに表示させる
+    end
+      
+    if @user.basic_work_time.nil?               #基本勤務時間
+      @basic_time = "--:--"                     #データがないときとの初期値
+    else
+      @basic_time = @user.basic_work_time       #データがあるときに　フィールに表示させる
+    end  
   end
   
+  #def basic_info_edit                           #指定・基本勤務時間の書き込み更新
+   # user.update(fixed_work_time: @user.fixed_work_time, basic_work_time: @user.basic_work_time)
+  #end
   
   
-#--------------これまで勤怠表示画面------------------------  
+  
+  
+#--------------これまで勤怠表示画面↑------------------------  
   
   
   def new
@@ -74,15 +91,30 @@ class UsersController < ApplicationController
   
   def edit
   end
-  
+   #-------------これより勤怠表示画面↓-------------------
   def update
-    if @user.update_attributes(user_params)
-      flash[:success] = "プロフィールが更新されました。"
-      redirect_to @user
+    if params[:basic_info_submit]                #基本情報の編集ボタンが押された場合
+    
+      @user.fixed_work_time = params[:user][:fixed_work_time].to_i
+      @user.basic_work_time = params[:user][:basic_work_time].to_i
+      @user.save
+      flash[:success] = "基本情報が更新されました。"
+      redirect_to action: 'show'
     else
       render 'edit'
-    end
+    end 
+    
+    
+    #if @user.update_attributes(user_params)        #edit.htmlから送信
+     # flash[:success] = "プロフィールが更新されました。"
+      #redirect_to @user
+    #else
+     # render 'edit'
+    #end
   end
+  #--------------これまで勤怠表示画面↑------------------------  
+  
+  
   
   def destroy
     User.find(params[:id]).destroy
