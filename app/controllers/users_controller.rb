@@ -95,8 +95,8 @@ class UsersController < ApplicationController
   def update
     if params[:basic_info_submit]                #基本情報の編集ボタンが押された場合
     
-      @user.fixed_work_time = params[:user][:fixed_work_time].to_i
-      @user.basic_work_time = params[:user][:basic_work_time].to_i
+      @user.fixed_work_time = params[:user][:fixed_work_time].to_f
+      @user.basic_work_time = params[:user][:basic_work_time].to_f
       @user.save
       flash[:success] = "基本情報が更新されました。"
       redirect_to action: 'show'

@@ -5,8 +5,8 @@
     <th><%= link_to '←', user_path(user_id: @user.id, button_name: 'last_month',first_day: @first_day, last_day: @last_day, current_day: @current_day) %></th>
     <th><%= @current_day.strftime('%Y') %>年 <%= @current_day.strftime('%m') %>月 　時間管理表</th>
     <th><%= link_to '→', user_path(user_id: @user.id, button_name: 'next_month',first_day: @first_day, last_day: @last_day, current_day: @current_day) %></th>
-    <th>指定勤務時間●:●</th>
-    <th colspan="3">●:●基本時間</th>
+    <th>指定勤務時間<%= @user.fixed_work_time %></th>
+    <th colspan="3">基本勤務時間<%= @user.basic_work_time %></th>
     <th>初日<%= @first_day.strftime("%m/%d") %></th>
   </tr>
   <tr>
