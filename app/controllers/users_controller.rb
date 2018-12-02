@@ -95,8 +95,19 @@ class UsersController < ApplicationController
   def update
     if params[:basic_info_submit]                #基本情報の編集ボタンが押された場合
     
-      @user.fixed_work_time = params[:user][:fixed_work_time].to_f
-      @user.basic_work_time = params[:user][:basic_work_time].to_f
+      #@user.fixed_work_time = params[:user][:fixed_work_time].to_f
+      
+      @array_fixed_work_time = Array.new    #指定勤務時間の配列初期化
+      @array_fixed_work_time = params[:user][:fixed_work_time].split(":").map(&:to_i)   #文字列→数値配列へ
+      @user.fixed_work_time = @array_fixed_work_time[0] + (@array_fixed_work_time[1]/60.to_f).round(2)  #60進数→10進数
+      
+      #@user.basic_work_time = params[:user][:basic_work_time].to_f
+      
+      @array_basic_work_time = Array.new    #基本勤務時間の配列初期化
+      @array_basic_work_time = params[:user][:basic_work_time].split(":").map(&:to_i)  #文字列→数値配列へ
+      @user.basic_work_time = @array_basic_work_time[0] + (@array_basic_work_time[1]/60.to_f).round(2)  #60進数→10進数
+      
+      
       @user.save
       flash[:success] = "基本情報が更新されました。"
       redirect_to action: 'show'
