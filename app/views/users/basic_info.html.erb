@@ -6,14 +6,15 @@
 
 
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@user) do |f| %>
+    <%= form_for(@user, url: basic_info_edit_path, method: :post) do |f| %>
+      <%= hidden_field_tag :id, @user.id %>
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :指定勤務時間 %>
-      <%= f.text_field :fixed_work_time, value: @fixed_time, class: 'form-control' %>
+      <%= f.time_field :fixed_work_time, class: 'form-control' %>
 
       <%= f.label :基本勤務時間 %>
-      <%= f.text_field :basic_work_time, value: @basic_time, class: 'form-control' %>
+      <%= f.time_field :basic_work_time, class: 'form-control' %>
 
       <%= f.submit "編集",  name:"basic_info_submit", class: "btn btn-primary" %>
     <% end %></font>

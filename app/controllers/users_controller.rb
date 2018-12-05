@@ -54,13 +54,13 @@ class UsersController < ApplicationController
     if @user.fixed_work_time.nil?               #指定勤務時間
       @fixed_time = "--:--"                     #データがないときとの初期値
     else
-      @fixed_time = @user.fixed_work_time       #データがあるときに　フィールに表示させる
+      @fixed_time = @user.fixed_work_time       #データがあるときに　フィールドに表示させる
     end
       
     if @user.basic_work_time.nil?               #基本勤務時間
       @basic_time = "--:--"                     #データがないときとの初期値
     else
-      @basic_time = @user.basic_work_time       #データがあるときに　フィールに表示させる
+      @basic_time = @user.basic_work_time       #データがあるときに　フィールドに表示させる
     end  
   end
   
@@ -91,37 +91,53 @@ class UsersController < ApplicationController
   
   def edit
   end
-   #-------------これより勤怠表示画面↓-------------------
+   #-------------これより勤怠 基本情報画面↓-------------------
+   def basic_info_edit
+     byebug
+     @user.fixed_work_time = params[:user][:fixed_work_time]
+     byebug
+     @user.basic_work_time = params[:basic_work_time]
+     byebug
+   end
+   
+   
+   
+   
+   
+   
+   
+   
+   
   def update
-    if params[:basic_info_submit]                #基本情報の編集ボタンが押された場合
+    #if params[:basic_info_submit]                #基本情報の編集ボタンが押された場合
     
-      #@user.fixed_work_time = params[:user][:fixed_work_time].to_f
-      
-      @array_fixed_work_time = Array.new    #指定勤務時間の配列初期化
-      @array_fixed_work_time = params[:user][:fixed_work_time].split(":").map(&:to_i)   #文字列→数値配列へ
-      @user.fixed_work_time = @array_fixed_work_time[0] + (@array_fixed_work_time[1]/60.to_f).round(2)  #60進数→10進数
-      
-      #@user.basic_work_time = params[:user][:basic_work_time].to_f
-      
-      @array_basic_work_time = Array.new    #基本勤務時間の配列初期化
-      @array_basic_work_time = params[:user][:basic_work_time].split(":").map(&:to_i)  #文字列→数値配列へ
-      @user.basic_work_time = @array_basic_work_time[0] + (@array_basic_work_time[1]/60.to_f).round(2)  #60進数→10進数
       
       
-      @user.save
-      flash[:success] = "基本情報が更新されました。"
-      redirect_to action: 'show'
+      #array_fixed_work_time = Array.new    #指定勤務時間の配列初期化
+      #array_fixed_work_time = params[:user][:fixed_work_time].split(":").map(&:to_i)   #文字列→数値配列へ
+      #@user.fixed_work_time = array_fixed_work_time[0] + (array_fixed_work_time[1]/60.to_f).round(2)  #60進数→10進数
+      
+      
+      
+      #array_basic_work_time = Array.new    #基本勤務時間の配列初期化
+      #array_basic_work_time = params[:user][:basic_work_time].split(":").map(&:to_i)  #文字列→数値配列へ
+      #@user.basic_work_time = array_basic_work_time[0] + (array_basic_work_time[1]/60.to_f).round(2)  #60進数→10進数
+      
+      
+      #@user.save
+      #flash[:success] = "基本情報が更新されました。"
+      #redirect_to action: 'show'
+    #else
+      #redirect_to "/users/:id/basic"    #基本情報に戻らせえて再入力させる
+    #end 
+    
+    
+    if @user.update_attributes(user_params)        #edit.htmlから送信
+      flash[:success] = "プロフィールが更新されました。"
+      redirect_to @user
     else
       render 'edit'
-    end 
-    
-    
-    #if @user.update_attributes(user_params)        #edit.htmlから送信
-     # flash[:success] = "プロフィールが更新されました。"
-      #redirect_to @user
-    #else
-     # render 'edit'
-    #end
+    end
   end
   #--------------これまで勤怠表示画面↑------------------------  
   
