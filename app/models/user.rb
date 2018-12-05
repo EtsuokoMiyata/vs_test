@@ -23,8 +23,8 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
-  validates :fixed_work_time, presence: true, length: { maximum: 5 }   #指定勤務時間
-  validates :basic_work_time, presence: true, length: { maximum: 5 }   #基本勤務時間
+  #validates :fixed_work_time, presence: true, length: { maximum: 5 }   #指定勤務時間
+  #validates :basic_work_time, presence: true, length: { maximum: 5 }   #基本勤務時間
   
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
