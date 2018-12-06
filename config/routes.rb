@@ -16,8 +16,7 @@ Rails.application.routes.draw do
   
   
   get 'users/:id/basic', to: 'users#basic_info', as: 'basic'  #特定のユーザーの指定基本時間を表示するページ
-  post 'users/:id/basic_edit', to: 'users#basic_info_edit', as: 'basic_info_edit'  #特定のユーザーの指定基本時間を更新
-  
+  post   '/basic_info_edit',    to: 'users#basic_info_edit'   #特定のユーザーの指定基本時間を更新
   
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

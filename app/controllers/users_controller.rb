@@ -93,8 +93,13 @@ class UsersController < ApplicationController
   end
    #-------------これより勤怠 基本情報画面↓-------------------
    def basic_info_edit
-     @user.fixed_work_time = params[:user][:fixed_work_time]
-     @user.basic_work_time = params[:basic_work_time]
+     @user  = User.find(params[:id])
+     if @user.update_attributes(user_params)       #users/:id/basic.htmlから送信
+      flash[:success] = "基本情報が更新されました。"
+      redirect_to @user
+     else
+      redirect_to "/users/:id/basic"    #基本情報に戻らせて再入力させる
+     end
    end
    
    
@@ -164,7 +169,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+                                   :password_confirmation,
+                                   :fixed_work_time,
+                                   :basic_work_time)
     end
   
   # beforeフィルター
