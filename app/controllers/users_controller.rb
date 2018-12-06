@@ -93,11 +93,8 @@ class UsersController < ApplicationController
   end
    #-------------これより勤怠 基本情報画面↓-------------------
    def basic_info_edit
-     byebug
      @user.fixed_work_time = params[:user][:fixed_work_time]
-     byebug
      @user.basic_work_time = params[:basic_work_time]
-     byebug
    end
    
    
