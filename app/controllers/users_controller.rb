@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   
   def index
      @users = User.paginate(page: params[:page])
-    #@users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
+    
   end
   
   #-------------これより勤怠表示画面↓-------------------
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
   end
   
   def basic_info  #特定のユーザーの指定基本時間を表示する
-    @user = User.find_by(id: params[:id])
+    @user = User.find_by(params[:id])
     @fixed_time = @user.fixed_work_time       #timeフィールドにから値を取得
     @basic_time = @user.basic_work_time       #timeフィールドにから値を取得
   end
@@ -103,12 +103,13 @@ class UsersController < ApplicationController
   end
    #-------------これより勤怠 基本情報画面↓-------------------
    def basic_info_edit
-     @user  = User.find(params[:id])
+     @user = User.find(params[:id])
      if @user.update_attributes(user_params)       #users/:id/basic.htmlから送信
       flash[:success] = "基本情報が更新されました。"
       redirect_to @user
      else
-      redirect_to "/users/:id/basic"    #基本情報に戻らせて再入力させる
+      #redirect_to "/users/:id/basic"    #基本情報に戻らせて再入力させる
+      redirect_to "/basic_info"    #基本情報に戻らせて再入力させる
      end
    end
    
