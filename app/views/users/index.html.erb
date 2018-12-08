@@ -3,14 +3,14 @@
 
 <%= will_paginate %>
 
-<!--  検索拡張機能  -->
-<div class="search_form" >
-<p>ユーザー検索</p>
-<%= form_tag(users_path, :method => 'get' ) do %>
-  <%= text_field_tag :search %>
-  <%= submit_tag '検索', :name => nil %>
-<% end %>
-</div>
+<!--  検索拡張機能    ポートフォリオ版-->
+<!---div class="search_form" -->
+<!--- p>ユーザー検索</p>
+<%#= form_tag(users_path, :method => 'get' ) do %>
+  <%#= text_field_tag :search %>
+  <%#= submit_tag '検索', :name => nil %>
+<%# end %>
+<!--- /div -->
 
 <ul class="users">
   <%= render @users %>

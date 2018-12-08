@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   require "time"   # Timeクラスを使えるよ
   
   def index
-     #@users = User.paginate(page: params[:page])
-      @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
+     @users = User.paginate(page: params[:page])
+    #@users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
   end
   
   #-------------これより勤怠表示画面↓-------------------
@@ -91,8 +91,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.send_activation_email
-      flash[:info] = "メールを確認してアカウントを有効にしてください。"
+      #@user.send_activation_email        #勤怠Bでは二段階認証不要のためコメントアウト
+      #flash[:info] = "メールを確認してアカウントを有効にしてください。"
       redirect_to root_url
     else
       render 'new'

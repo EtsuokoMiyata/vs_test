@@ -23,8 +23,8 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
-  #validates :fixed_work_time, presence: true, length: { maximum: 5 }   #指定勤務時間
-  #validates :basic_work_time, presence: true, length: { maximum: 5 }   #基本勤務時間
+  validates :fixed_work_time, presence: true, allow_nil: false  #指定勤務時間
+  validates :basic_work_time, presence: true, allow_nil: false  #基本勤務時間
   
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
@@ -62,10 +62,10 @@ class User < ApplicationRecord
     update_attribute(:activated_at, Time.zone.now)
   end
 
-  # 有効化用のメールを送信する
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
-  end
+  # 有効化用のメールを送信する　勤怠Bでは2段階認証不要なのでコメントアウト
+  #def send_activation_email
+    #UserMailer.account_activation(self).deliver_now
+  #end
 
   # パスワード再設定の属性を設定する
   def create_reset_digest
