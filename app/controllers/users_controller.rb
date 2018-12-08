@@ -25,20 +25,42 @@ class UsersController < ApplicationController
     else
       
        if params[:button_name] == "last_month"          #前月矢印が押された時
-          @first_day = Date.strptime(params[:first_day]).prev_month.beginning_of_month
-          @last_day = Date.strptime(params[:last_day]).prev_month.end_of_month
-          @current_day = Date.strptime(params[:current_day]).prev_month
           
+          first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
+          
+          @first_day = Date.strptime(first.gsub(/\//, '-')).prev_month.beginning_of_month
+          @last_day = Date.strptime(last.gsub(/\//, '-')).prev_month.end_of_month
+          @current_day = Date.strptime(current.gsub(/\//, '-')).prev_month
+    
           calendar #1か月分のカレンダー
+          
         elsif params[:button_name] == "next_month"       #次月矢印が押された時 
-          @first_day = Date.strptime(params[:first_day]).next_month.beginning_of_month
-          @last_day = Date.strptime(params[:last_day]).next_month.end_of_month
-          @current_day = Date.strptime(params[:current_day]).next_month
+          first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
+        
+          @first_day = Date.strptime(first.gsub(/\//, '-')).next_month.beginning_of_month
+          @last_day = Date.strptime(last.gsub(/\//, '-')).next_month.end_of_month
+          @current_day = Date.strptime(current.gsub(/\//, '-')).next_month
+          
           calendar #1か月分のカレンダー
         else
        end
     end
   end
+  
+  def date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
+    first = params[:first_day]       #初日
+    first = first.gsub(/\//, '-')   
+    
+    last = params[:last_day]          #締日
+    last = last.gsub(/\//, '-')       
+          
+    current = params[:current_day]    #当月   
+    current = current.gsub(/\//, '-')           
+  
+    return first, last, current
+  end
+  
+  
   
   
   def calendar #1か月分のカレンダー
@@ -50,23 +72,11 @@ class UsersController < ApplicationController
   
   def basic_info  #特定のユーザーの指定基本時間を表示する
     @user = User.find_by(id: params[:id])
-    
-    if @user.fixed_work_time.nil?               #指定勤務時間
-      @fixed_time = "--:--"                     #データがないときとの初期値
-    else
-      @fixed_time = @user.fixed_work_time       #データがあるときに　フィールドに表示させる
-    end
-      
-    if @user.basic_work_time.nil?               #基本勤務時間
-      @basic_time = "--:--"                     #データがないときとの初期値
-    else
-      @basic_time = @user.basic_work_time       #データがあるときに　フィールドに表示させる
-    end  
+    @fixed_time = @user.fixed_work_time       #timeフィールドにから値を取得
+    @basic_time = @user.basic_work_time       #timeフィールドにから値を取得
   end
   
-  #def basic_info_edit                           #指定・基本勤務時間の書き込み更新
-   # user.update(fixed_work_time: @user.fixed_work_time, basic_work_time: @user.basic_work_time)
-  #end
+  
   
   
   
