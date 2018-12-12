@@ -53,10 +53,24 @@
     <td><%= date.strftime("#{wd[date.wday]}") %></th>
     <td></td>
     <td></td>
-    <td><button type="button" class="btn btn-default">出社</button></td>
+    <td>
+      <!-- 本日の欄に出社ボタン表示　-->
+      <% if date == Date.today %>
+        <button type="button" class="btn btn-default">出社</button></td>
+      <% else %>
+      <% end %>
+      
+      
     <td></td>
     <td></td>
-    <td><button type="button" class="btn btn-default">退社</button></td>
+    <td>
+      <!-- 本日の欄に退社ボタン表示　-->
+      <% if date == Date.today %>
+        <button type="button" class="btn btn-default">退社</button></td>
+      <% else %>
+      <% end %>
+      
+      
     <td></td>
     <td></td>
   </tr>
@@ -83,22 +97,22 @@
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
+        <%#= gravatar_for @user %>
+        <%#= @user.name %>
       </h1>
     </section>
     <section class="stats">
-      <%= render 'shared/stats' %>
+      <%#= render 'shared/stats' %>
     </section>
   </aside>
   <div class="col-md-8">
-    <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <h3>投稿  (<%= @user.microposts.count %>)</h3>
+    <%#= render 'follow_form' if logged_in? %>
+    <%# if @user.microposts.any? %>
+      <h3>投稿  (<%#= @user.microposts.count %>)</h3>
       <ol class="microposts">
-        <%= render @microposts %>
+        <%#= render @microposts %>
       </ol>
-      <%= will_paginate @microposts %>
-    <% end %>
+      <%#= will_paginate @microposts %>
+    <%# end %>
   </div> 不要な機能ここまで-------------------　　　　-->
 </div>

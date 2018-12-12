@@ -1,4 +1,15 @@
 module UsersHelper
+    def work_in_button(date)
+    if date == Date.today
+       @work_in_button = raw('<button type="button" class="btn btn-default">出社</button>')
+    else
+    end
+    end
+    
+    
+    
+    
+    
   
    # 引数で与えられたユーザーのGravatar画像を返す
   def gravatar_for(user, options = { size: 80 })

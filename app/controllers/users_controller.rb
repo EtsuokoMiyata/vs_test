@@ -65,6 +65,7 @@ class UsersController < ApplicationController
   
   def calendar #1か月分のカレンダー
     @arrey=Array.new
+    
     (@first_day..@last_day).each do |date|
     @arrey.push(date)
     end
@@ -76,7 +77,9 @@ class UsersController < ApplicationController
     @basic_time = @user.basic_work_time       #timeフィールドにから値を取得
   end
   
-  
+  #def work_in_button(date)
+       #@work_in_button = '<button type="button" class="btn btn-default">出社</button>'
+  #end
   
   
   
@@ -122,29 +125,6 @@ class UsersController < ApplicationController
    
    
   def update
-    #if params[:basic_info_submit]                #基本情報の編集ボタンが押された場合
-    
-      
-      
-      #array_fixed_work_time = Array.new    #指定勤務時間の配列初期化
-      #array_fixed_work_time = params[:user][:fixed_work_time].split(":").map(&:to_i)   #文字列→数値配列へ
-      #@user.fixed_work_time = array_fixed_work_time[0] + (array_fixed_work_time[1]/60.to_f).round(2)  #60進数→10進数
-      
-      
-      
-      #array_basic_work_time = Array.new    #基本勤務時間の配列初期化
-      #array_basic_work_time = params[:user][:basic_work_time].split(":").map(&:to_i)  #文字列→数値配列へ
-      #@user.basic_work_time = array_basic_work_time[0] + (array_basic_work_time[1]/60.to_f).round(2)  #60進数→10進数
-      
-      
-      #@user.save
-      #flash[:success] = "基本情報が更新されました。"
-      #redirect_to action: 'show'
-    #else
-      #redirect_to "/users/:id/basic"    #基本情報に戻らせえて再入力させる
-    #end 
-    
-    
     if @user.update_attributes(user_params)        #edit.htmlから送信
       flash[:success] = "プロフィールが更新されました。"
       redirect_to @user
