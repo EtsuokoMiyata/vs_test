@@ -1,5 +1,5 @@
-<% provide(:title, "プロフィール更新") %>
-<h1><font color="#0101DF">プロフィール更新</h1>
+<% provide(:title, "アカウント情報の更新") %>
+<h1><font color="#0101DF">アカウント情報の更新</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -11,6 +11,10 @@
 
       <%= f.label :メールアドレス %>
       <%= f.email_field :email, class: 'form-control' %>
+      
+      <%= f.label :所属 %>
+      <%= f.text_field :department, class: 'form-control' %>
+
 
       <%= f.label :パスワード %>
       <%= f.password_field :password, class: 'form-control' %>

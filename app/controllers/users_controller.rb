@@ -158,10 +158,11 @@ class UsersController < ApplicationController
   end
   
    private
-
+    #ストロングパラメータ
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation,
+                                   :department,
                                    :fixed_work_time,
                                    :basic_work_time)
     end
