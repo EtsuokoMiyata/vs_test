@@ -20,5 +20,10 @@ module SampleApp
     
     #　#　以下の記述を追記する(設定必須)
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    
+    #タイムゾーンの設定
+    config.time_zone = 'Asia/Tokyo'
+    config.active_record.default_timezone = :utc
+    
   end
 end
