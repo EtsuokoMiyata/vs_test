@@ -1,0 +1,29 @@
+<% #provide(:title, @user.name) %>
+<!-- これより勤怠編集画面 -->
+
+<table table class="table table-striped table-bordered">
+<thead>
+  <tr>
+    <th>日付</th>
+    <th>曜日</th>
+    <th>出社</th>
+    <th>退社</th>
+    <th>在社時間</th>
+    <th>備考</th>
+  </tr>
+</thead>
+
+<tbody class="bulk-registration-form">
+   <%= form_for(@user.attendance, user_path) do |f| %>
+   <tr>
+    <th>12/18</th>
+    <th>火</th>
+    <th><% f.label :指定勤務時間 %>
+      <%= f.time_field :in_time, class: 'form-control' %></th>
+    <th>退社</th>
+    <th>8.5</th>
+    <th>おすきにどうぞ</th>
+  </tr>
+  <% end %>  
+</tbody>
+</table>

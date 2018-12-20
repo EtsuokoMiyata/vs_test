@@ -13,7 +13,8 @@
     <td colspan="3">所属:<%= @user.department %></td>
     <td>氏名：<%= @user.name %></td>
     <td>コード</td>
-    <td></td>
+    <td><%= @user.id %></td>
+     <%= hidden_field_tag :id, @user.id %>
     <td>出勤日数●日</td>
     <th>締日<%= @last_day.strftime("%m/%d") %></th>
   </tr>
@@ -21,7 +22,7 @@
 <BR>
 
 <!-- これより勤怠表示画面の　カレンダーの見出し -->
-<%= link_to "勤怠を編集", signup_path, class: "btn btn-lg btn-primary" %>
+<%= link_to "勤怠を編集", edit_attendance_path, class: "btn btn-lg btn-primary" %>
 <table class="table table-striped table-bordered">
   <tr>
     <th></th>
@@ -56,7 +57,8 @@
     <td>
       <!-- 本日の欄に出社ボタン表示　-->
       <% if date == Date.today %>
-        <button type="button" class="btn btn-default">出社</button></td>
+        <!-- button type="button" class="btn btn-default" -->出社<!-- /button --><!-- /td -->
+        <%= link_to '出社', attendances_path(id: @user.id, button_name: 'in_office'), method: :post, class: "btn btn-default" %></td>
       <% else %>
       <% end %>
       
