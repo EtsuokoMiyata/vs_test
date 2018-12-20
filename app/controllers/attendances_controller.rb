@@ -11,7 +11,7 @@ class AttendancesController < ApplicationController
     
     ss = params[:user_id]
     #bb = params[:id]
-    @attendance=Attendance.new({user_id: params[:id], in_time: Time.new})
+    @attendance=Attendance.new({user_id: params[:format], in_time: Time.new})
     
     #@user = User.find_by(params[:id])
     #@user.attendances[:in_time] = in_office

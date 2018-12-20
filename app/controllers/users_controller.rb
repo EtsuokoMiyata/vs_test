@@ -75,6 +75,7 @@ class UsersController < ApplicationController
     #@user = current_user
     #debugger
     
+    
     @user = User.find(params[:id] = params[:format]) 
     #@user = User.find(params[:format])        #:formatを使うとうまくいく
     #@user = User.find_by(params[:id])

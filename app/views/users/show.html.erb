@@ -58,7 +58,7 @@
       <!-- 本日の欄に出社ボタン表示　-->
       <% if date == Date.today %>
         <!-- button type="button" class="btn btn-default" -->出社<!-- /button --><!-- /td -->
-        <%= link_to '出社', attendances_path(id: @user.id, button_name: 'in_office'), method: :post, class: "btn btn-default" %></td>
+        <%= link_to '出社', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %></td>
       <% else %>
       <% end %>
       
