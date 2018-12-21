@@ -14,8 +14,9 @@ class UsersController < ApplicationController
   
   #-------------これより勤怠表示画面↓-------------------
   def show  #ログイン画面から　paramsのidを取得する
+    #@user = User.find_by(params[:id])
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    #@microposts = @user.microposts.paginate(page: params[:page])
     
     if params[:button_name] == nil
       @current_day = Date.today                         #現在の日時を取得

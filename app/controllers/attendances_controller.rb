@@ -26,7 +26,7 @@ class AttendancesController < ApplicationController
     
     if @attendance.save
       flash[:success] = "出勤が登録されました。"
-      redirect_to '/basic_info'
+      redirect_to '/users/:id'
     else
       @feed_items = []
       render 'static_pages/home'
