@@ -34,8 +34,8 @@ Rails.application.routes.draw do
   
   #resources :relationships,       only: [:create, :destroy]    #勤怠Bでは不要のためコメントアウト
   
-  get '/basic_info/',    to: 'users#basic_info'    #特定のユーザーの指定基本時間を表示するページ
-  #get '/basic_info/:id',    to: 'users#basic_info', as: 'basic_info'    #特定のユーザーの指定基本時間を表示するページ
+  #get '/basic_info/',    to: 'users#basic_info'    #特定のユーザーの指定基本時間を表示するページ
+  get '/basic_info/:id',    to: 'users#basic_info', as: 'basic_info'    #特定のユーザーの指定基本時間を表示するページ
   #get 'users/:id/basic', to: 'users#basic_info', as: 'basic'  #特定のユーザーの指定基本時間を表示するページ
   post   '/basic_info_edit',    to: 'users#basic_info_edit'   #特定のユーザーの指定基本時間を更新
   

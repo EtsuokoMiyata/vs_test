@@ -20,6 +20,9 @@
   </tr>
 </table>
 <BR>
+<li><%= @user.id %></li>
+<%= hidden_field_tag :id, @user.id %>
+
 
 <!-- これより勤怠表示画面の　カレンダーの見出し -->
 <%= link_to "勤怠を編集", edit_attendance_path, class: "btn btn-lg btn-primary" %>

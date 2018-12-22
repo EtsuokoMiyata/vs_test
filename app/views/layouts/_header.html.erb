@@ -14,10 +14,19 @@
         <li><%= link_to "トップへ", root_path %></li>
         <!-- li><%# = link_to "お気に入り", help_path %></li -->
         <% if logged_in? %>
-          <li><%= link_to "ユーザー", users_path %></li>
-          <li><%= link_to "基本情報の修正", basic_info_path(@user) %></li>
+          <li><%= link_to "ユーザー一覧", users_path(button_name: 'index') %></li>
           
-          <li class="dropdown">
+          <!--  ユーザー一覧を押したときと　又は　[:id]がなかったときでHTML表示かえる  -->
+          <% if params[:button_name] == "index" or params[:id].nil? %> 
+            <li><%#= link_to "基本情報の修正", basic_info_path(@user) %></li>
+            <li><%#= @user.id %></li>
+            <li class="dropdown">
+          <% else %>
+            <li><%= link_to "基本情報の修正", basic_info_path(@user) %></li>
+            <li><%= @user.id %></li>
+            <li class="dropdown">          
+          <% end %>
+              
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               アカウント <b class="caret"></b>
             </a>
