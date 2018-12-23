@@ -1,8 +1,10 @@
 <!-- 勤怠B　新規で作成したファイル       -->
 <% provide(:title, "基本情報の更新") %>
 <h1><font color="#0101DF">基本情報の更新</h1>
-      <% @user.id = params[:id] %>
- id: <%= @user.id %> 氏名：<%= @user.name %>  params id：<%= params[:id] %>
+  <!-- アドミンで入ったときに パラムズのidと　@userのidが　ちがうので、パラムズのidを代入する -->
+  <% @user = User.find_by(id: params[:id]) %>
+  <% @user.id = params[:id] %>
+   id: <%= @user.id %> 氏名：<%= @user.name %>  params id：<%= params[:id] %>
 <div class="row">
 
 
