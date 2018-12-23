@@ -9,9 +9,12 @@ class AttendancesController < ApplicationController
     #user.attendances.create
     #in_office = Time.new
     
-    ss = params[:user_id]
+    #ss = params[:user_id]
     #bb = params[:id]
-    @attendance=Attendance.new({user_id: params[:format], in_time: Time.new})
+    params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
+    
+    #debugger
+    @attendance=Attendance.new({user_id: params[:id], in_time: Time.new})
     
     #@user = User.find_by(params[:id])
     #@user.attendances[:in_time] = in_office
@@ -26,7 +29,8 @@ class AttendancesController < ApplicationController
     
     if @attendance.save
       flash[:success] = "出勤が登録されました。"
-      redirect_to '/users/:id'
+      #debugger
+      redirect_to controller: 'users', action: 'show', id: params[:format]
     else
       @feed_items = []
       render 'static_pages/home'
