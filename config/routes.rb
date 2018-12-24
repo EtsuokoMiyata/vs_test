@@ -30,8 +30,8 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
   
-  resources :attendances,          only: [:create, :destroy, :edit, :update]  #勤怠B 出社退社テーブル
-  
+  #resources :attendances,          only: [:create, :destroy, :edit, :update]  #勤怠B 出社退社テーブル
+  resources :attendances                                                        #勤怠B 出社退社テーブル
   #resources :relationships,       only: [:create, :destroy]    #勤怠Bでは不要のためコメントアウト
   
   #get '/basic_info/',    to: 'users#basic_info'    #特定のユーザーの指定基本時間を表示するページ
