@@ -23,7 +23,7 @@ module SampleApp
     
     #タイムゾーンの設定
     config.time_zone = 'Asia/Tokyo'
-    config.active_record.default_timezone = :utc
+    #config.active_record.default_timezone = :utc   #Tokyoだけにしてみた
     
   end
 end

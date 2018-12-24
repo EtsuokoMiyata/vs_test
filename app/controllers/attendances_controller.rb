@@ -51,8 +51,12 @@ class AttendancesController < ApplicationController
     #debugger
     @user = User.find(params[:id])
     #debugger
-    @attendance = @user.attendances.first     #test
-    #debugger
+    @attendance = @user.attendances.first     #test　うまくいった
+    
+    @at = @user.attendances.find_by(user_id: params[:id], in_time: Date.today)  #test
+    
+    
+    
     #@microposts = @user.microposts.paginate(page: params[:page])
     
     if params[:button_name] == nil

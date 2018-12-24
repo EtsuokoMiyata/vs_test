@@ -55,14 +55,17 @@
     <td><%= date.strftime("%-m/%-d") %></th>
         <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
     <td><%= date.strftime("#{wd[date.wday]}") %></th>
-    <td></td>
-    <td></td>
-    <td>
+   
       <!-- 本日の欄に出社ボタン表示　-->
       <% if date == Date.today %>
+        <td><%= @attendance.in_time %></td>
+        <td></td>
         <!-- button type="button" class="btn btn-default" -->出社<!-- /button --><!-- /td -->
-        <%= link_to '出社', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %></td>
+        <td><%= link_to '出社', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %></td>
       <% else %>
+        <td></td>
+        <td></td>
+        <td></td>
       <% end %>
       
       
@@ -81,7 +84,7 @@
   </tr>
 <% end %>
 </table>
-<%= @attendance.in_time %>
+<%= @at.in_time %>
 <%# debugger %>
 <%= @pi %>
 <%= @user.id %>
