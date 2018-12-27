@@ -2,34 +2,29 @@ class AttendancesController < ApplicationController
   #before_action :logged_in_user, only: [:create, :edit, :update]
   #before_action :correct_user,   only: [:create, :destroy, :edit, :update]
   #before_action :admin_user,   only: :destroy
+  
+  require "date"   #Dateクラスを使えるよう
+  require "time"   # Timeクラスを使えるよ
 
   #出勤ボタンが押されたら　DBに登録する
   def create
-    
-    #user.attendances.create
-    #in_office = Time.new
-    
-    @pui = params[:user_id]
-    @pi = params[:id]
     params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
-    
-    #debugger
     #@user = User.find_by(id: params[:id])                                 #test
     #@attendance=Attendance.new(in_time: Time.new)                         #test user_idはいらなかった
-    @attendance=Attendance.new({user_id: params[:id], in_time: Time.new}) #書き込みできた
     
-    #@user = User.find_by(params[:id])
-    #@user.attendances[:in_time] = in_office
+    if params[:button_name] == "in_office"    #ボタンが出社の場合
+      attendance=Attendance.new({user_id: params[:id], in_time: Time.new, today: Date.today}) #書き込みできた
+    elsif params[:button_name] == "out_office"  #ボタンが退社の場合
+      attendance=Attendance.find_by({user_id: params[:id], today: Date.today})
+      attendance.update_attributes(out_time: Time.new) #退社時刻を登録
+    else
+    end
     
-    #@user = users(params[:user_id])   
-    #@attendance = @user.attendances.build(user_id: params[:user_id])
-    #@user = User.find_by(id: params[:user_id])
-   
-    #@attendance[:user_id]=params[:user_id]
-    #@attendance[:in_time] = in_office
-     #debugger
+      
     
-    if @attendance.save
+    
+    
+    if attendance.save
       flash[:success] = "出勤が登録されました。"
       #@attendance.in_time      #test 値は入っているが、redirect_toで渡せない
       #debugger
@@ -48,15 +43,18 @@ class AttendancesController < ApplicationController
   #-------------これより勤怠表示画面↓-------------------
   def show  #ログイン画面から　paramsのidを取得する
     #@user = User.find_by(params[:id])
-    #debugger
     @user = User.find(params[:id])
-    #debugger
-    @attendance = @user.attendances.first     #test　うまくいった
+    @attendance_button=Attendance.find_by({user_id: params[:id], today: Date.today})    #出社退社のボタンの表示用
+    @attendance=Attendance.find_by({user_id: params[:id]})                        #出社時間と退社時間表示用
     
-    @at = @user.attendances.find_by(user_id: params[:id], in_time: Date.today)  #test
-    
-    
-    
+    #if attendance.in_time and attendance.out_time.empty? 
+      #@attendance_in =  attendance.in_time
+    #elsif attendance.in_time and attendance.out_time
+      #@attendance_out =  attendance.out_time 
+    #else
+    #end
+     
+    @at = @user.attendances.find_by(user_id: params[:id], today: Date.today)  #test
     #@microposts = @user.microposts.paginate(page: params[:page])
     
     if params[:button_name] == nil
