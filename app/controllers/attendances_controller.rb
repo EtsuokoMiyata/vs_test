@@ -42,18 +42,11 @@ class AttendancesController < ApplicationController
   
   #-------------これより勤怠表示画面↓-------------------
   def show  #ログイン画面から　paramsのidを取得する
-    #@user = User.find_by(params[:id])
     @user = User.find(params[:id])
     @attendance_button=Attendance.find_by({user_id: params[:id], today: Date.today})    #出社退社のボタンの表示用
     @attendance=Attendance.find_by({user_id: params[:id]})                        #出社時間と退社時間表示用
     
-    #if attendance.in_time and attendance.out_time.empty? 
-      #@attendance_in =  attendance.in_time
-    #elsif attendance.in_time and attendance.out_time
-      #@attendance_out =  attendance.out_time 
-    #else
-    #end
-     
+   
     @at = @user.attendances.find_by(user_id: params[:id], today: Date.today)  #test
     #@microposts = @user.microposts.paginate(page: params[:page])
     

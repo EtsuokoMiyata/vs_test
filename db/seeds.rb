@@ -32,7 +32,7 @@ end
 # リレーションシップ
 users = User.all
 user  = users.first
-following = users[2..50]
-followers = users[3..40]
-following.each { |followed| user.follow(followed) }
-followers.each { |follower| follower.follow(user) }
+#following = users[2..50]                             #勤怠Bに不要
+#followers = users[3..40]                             #勤怠Bに不要
+#following.each { |followed| user.follow(followed) }  #勤怠Bに不要
+#followers.each { |follower| follower.follow(user) }  #勤怠Bに不要
