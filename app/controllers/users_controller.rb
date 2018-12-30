@@ -14,10 +14,13 @@ class UsersController < ApplicationController
   
   #-------------これより勤怠表示画面↓-------------------
   def show  #ログイン画面から　paramsのidを取得する
-    #@user = User.find_by(params[:id])
-    #debugger
     @user = User.find(params[:id])
+    #@attendance=Attendance.find_by({user_id: params[:id], today: Date.today})    #出社退社のボタンの表示用　ヘルパーに移動
+    #@attendance=Attendance.find_by({user_id: params[:id]})                        #出社時間と退社時間表示用
     #debugger
+    
+    
+    
     #@microposts = @user.microposts.paginate(page: params[:page])
     
     if params[:button_name] == nil

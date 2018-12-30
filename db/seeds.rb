@@ -23,11 +23,11 @@ User.create!(name:  "Example User",
               basic_work_time: "2000-01-01 10:45:00")
 end
 
-users = User.order(:created_at).take(6)
-10.times do
-  content = Faker::Lorem.sentence(5)
-  users.each { |user| user.microposts.create!(content: content) }
-end
+#users = User.order(:created_at).take(6)    #勤怠Bに不要
+#10.times do
+  #content = Faker::Lorem.sentence(5)
+  #users.each { |user| user.microposts.create!(content: content) }
+#end
 
 # リレーションシップ
 users = User.all

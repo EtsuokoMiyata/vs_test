@@ -48,6 +48,7 @@
     <th>備考</th>
   </tr>
 
+<%= @attendance %>
 <!-- これより勤怠表示画面の　1か月分カレンダー始まり -->
 <% require 'date' %>
 <% @arrey.each do |date| %>
@@ -55,27 +56,32 @@
     <td><%= date.strftime("%-m/%-d") %></th>
         <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
     <td><%= date.strftime("#{wd[date.wday]}") %></th>
-    <td><%= match_in_hour(date) %></td>
-    <td><%= match_in_min(date) %></td>
+    <td><%= att_match_in_hour(date) %></td>
+    <td><%= att_match_in_min(date) %></td>
     <td>
    
       <!-- 本日の欄に出社ボタン表示　-->
-      <!-- 本日かつ　出社時間 未登録　かつ　退社時間　社未登録　出社ボタン表示　-->
-      <% if date == Date.today && @attendance_button.in_time.nil? && @attendance_button.out_time.nil? %>
-         <%= link_to '出社', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>
-      <% else %>
+     <!-- attendannceテーブルに　一度も登録していない場合と登録済みの場合　-->
+      <% if @attendance.nil? && date == Date.today%>
+         <%= link_to 'アカウント作成しただけ', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>
+      <% elsif date == Date.today && @attendance.in_time.nil? %>
+          <%= link_to 'DB未登録', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>
+      <% else %>  
       <% end %>
       </td>
       
-      <td><%= match_out_hour(date) %></td>
-      <td><%= match_out_min(date) %></td>
+      <td><%= att_match_out_hour(date) %></td>
+      <td><%= att_match_out_min(date) %></td>
    
       <td> 
       <!-- 本日の欄に退社ボタン表示　-->
       <!-- 本日かつ　出社時間登録済み　かつ　退社時間 未登録の場合　退社ボタン表示 -->
-      <% if date == Date.today && @attendance_button.in_time.present? && @attendance_button.out_time.nil? %>
-        <%= link_to '退社', attendances_path(@user, button_name: 'out_office'), method: :post, class: "btn btn-default" %>
-      <% else %>
+      <!-- 本日かつ　出社時間登録済み　かつ　退社時間 未登録の場合　退社ボタン表示 -->
+      <% if @attendance.nil? %>
+        
+      <% elsif date == Date.today && @attendance.in_time.present? && @attendance.out_time.nil? %>
+        <%= link_to 'DB出社のみ登録', attendances_path(@user, button_name: 'out_office'), method: :post, class: "btn btn-default" %>
+      <% else %>  
       <% end %>
       </td>
       <td></td>
