@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@user) do |f| %>
+    <%= form_for(@user, url: users_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <%= f.label :名前 %>
       <%= f.text_field :name, class: 'form-control' %>
@@ -23,6 +23,7 @@
       <%= f.label :password_confirmation, "パスワード（確認用）" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
+      <!-- ボタン名でヘッダー表示をかえるので　ボタン名を追加　-->
       <%= f.submit "アカウントを作成する", class: "btn btn-primary" %>
     <% end %>
   </div>

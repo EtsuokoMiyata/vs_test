@@ -13,6 +13,8 @@
         
         <li><%= link_to "トップへ", root_path %></li>
         <!-- li><%# = link_to "お気に入り", help_path %></li -->
+        
+        
         <% if logged_in? %>
           <li><%= link_to "ユーザー一覧", users_path(button_name: 'index') %></li>
           

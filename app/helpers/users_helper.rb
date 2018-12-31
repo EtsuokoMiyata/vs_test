@@ -48,6 +48,17 @@ module UsersHelper
     end
   end
     
+   
+   
+  def work_days     #出勤日数をかぞえる  idかつ退社カラムがnilでないもの（1か月のレンジが必要）
+
+    Attendance.where(user_id: params[:id]).where.not(out_time: nil).where(today: @arrey[0]..@arrey[-1]).count
+    #debugger
+  end
+   
+   
+   
+   
     
     
     
