@@ -50,14 +50,22 @@ module UsersHelper
     
    
    
-  def work_days     #出勤日数をかぞえる  idかつ退社カラムがnilでないもの（1か月のレンジが必要）
-
+  def work_days     #出勤日数をかぞえる  idかつ退社カラムがnilでないもの（1か月のレンジで）
     Attendance.where(user_id: params[:id]).where.not(out_time: nil).where(today: @arrey[0]..@arrey[-1]).count
     #debugger
   end
    
    
-   
+  def hours_in_company(date)
+    @attendance=Attendance.find_by({user_id: params[:id], today: date}) 
+    if @attendance.nil?   #アカウントを登録しただけの場合
+    
+    elsif @attendance.out_time.present? && date == @attendance.today
+      ((@attendance.out_time - @attendance.in_time) / 60 / 60).floor(2)      #秒単位から時間へ変換 切り捨て
+      
+    else
+    end
+  end
    
     
     

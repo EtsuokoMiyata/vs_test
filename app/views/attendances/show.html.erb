@@ -76,7 +76,6 @@
       <td> 
       <!-- 本日の欄に退社ボタン表示　-->
       <!-- 本日かつ　出社時間登録済み　かつ　退社時間 未登録の場合　退社ボタン表示 -->
-      <!-- 本日かつ　出社時間登録済み　かつ　退社時間 未登録の場合　退社ボタン表示 -->
       <% if @attendance.nil? %>
         
       <% elsif date == Date.today && @attendance.in_time.present? && @attendance.out_time.nil? %>
@@ -84,7 +83,7 @@
       <% else %>  
       <% end %>
       </td>
-      <td></td>
+      <td><%= hours_in_company(date) %></td>
       <td></td>
   </tr>
 <% end %>
