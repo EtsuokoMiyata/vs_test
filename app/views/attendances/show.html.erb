@@ -87,6 +87,19 @@
       <td></td>
   </tr>
 <% end %>
+  <tr>
+    <td></td>
+    <!-- 総合勤務時間の表示　出勤日数×基本時間　-->
+    <td>総合勤務時間<%= work_days * (@user.basic_work_time.hour.to_i  + (@user.basic_work_time.min.to_f / 60).floor(2)) %></td>
+    <td></td>
+    <td></td>
+    <th></th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <th>在社時間合計<%= %></th>
+    <th></th>
+  </tr>
 </table>
 <%= @at.in_time %>
 <%# debugger %>
