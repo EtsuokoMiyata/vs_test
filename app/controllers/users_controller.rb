@@ -107,9 +107,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       #@user.send_activation_email        #勤怠Bでは二段階認証不要のためコメントアウト
-      #flash[:info] = "メールを確認してアカウントを有効にしてください。"
+      #flash[:info] = "メールを確認してアカウントを有効にしてください。"      #勤怠Bでは二段階認証不要のためコメントアウト
       session[:received_form] = @user   #サインアップ成功した際の　ヘッダ表示　条件分岐用
-      #current_user=@user
+      #current_user=@user                #勤怠Bでは二段階認証不要のためコメントアウト
+      log_in(@user)                     #サインアップから入ってきたユーザー用に追加
       redirect_to user_path(@user)
     else
       render 'new'
