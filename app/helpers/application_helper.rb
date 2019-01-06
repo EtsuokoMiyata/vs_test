@@ -1,9 +1,10 @@
 module ApplicationHelper
   
-  require "date"   #Dateクラスを使えるよう show.html
-  def now_time
-    @now = Date.today  #Date.today(今日の日付)を変数todayに代入する
-  end
+  #ポートフォリオ版用なので　勤怠Bでは不要
+  #require "date"   #Dateクラスを使えるよう show.html
+  #def now_time
+    #@now = Date.today  #Date.today(今日の日付)を変数todayに代入する
+  #end
 
   
 

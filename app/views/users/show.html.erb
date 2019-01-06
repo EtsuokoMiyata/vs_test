@@ -61,10 +61,11 @@
    
       <!-- 本日の欄に出社ボタン表示　-->
       <!-- attendannceテーブルに　一度も登録していない場合と登録済みの場合　-->
-      <% if @attendance.nil? && date == Date.today%>
-         <%= link_to 'アカウント作成しただけ', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>
-      <% elsif date == Date.today && @attendance.in_time.nil? %>
-          <%= link_to 'DB未登録', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>
+      <!-- Time.now + 32400で JSTにする -->
+      <% if @attendance.nil? && date == Date.parse((Time.now + 32400).to_s) %>
+         <%= link_to '出社', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>  <!-- アカウント作成しただけ -->
+      <% elsif date == time_to_date_J && @attendance.in_time.nil? %>
+          <%= link_to '出社', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>  <!-- DB未登録 -->
       <% else %>  
       <% end %>
       </td>
@@ -76,9 +77,9 @@
       <!-- 本日の欄に退社ボタン表示　-->
       <!-- 本日かつ　出社時間登録済み　かつ　退社時間 未登録の場合　退社ボタン表示 -->
       <% if @attendance.nil? %>
-        
-      <% elsif date == Date.today && @attendance.in_time.present? && @attendance.out_time.nil? %>
-        <%= link_to 'DB出社のみ登録', attendances_path(@user, button_name: 'out_office'), method: :post, class: "btn btn-default" %>
+       <!-- Time.now + 32400で JSTにする -->
+      <% elsif date == Date.parse((Time.now + 32400).to_s) && @attendance.in_time.present? && @attendance.out_time.nil? %>
+        <%= link_to '退社', attendances_path(@user, button_name: 'out_office'), method: :post, class: "btn btn-default" %>     <!-- DB出社のみ登録 -->
       <% else %>  
       <% end %>
       </td>

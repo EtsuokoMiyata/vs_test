@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   
   require "date"   #Dateクラスを使えるよう
   require "time"   # Timeクラスを使えるよ
+  include UsersHelper   #ヘルパーを読めるようにする
   
   def index
      @users = User.paginate(page: params[:page])
@@ -24,9 +25,9 @@ class UsersController < ApplicationController
     #@microposts = @user.microposts.paginate(page: params[:page])
     
     if params[:button_name] == nil
-      @current_day = Date.today                         #現在の日時を取得
-      @first_day = Date.today.beginning_of_month
-      @last_day = Date.today.end_of_month
+      @current_day = time_to_date_J                         #現在の日時を取得     #Date.todayをJSTにするためにTime.nowをつかう
+      @first_day = time_to_date_J.beginning_of_month
+      @last_day = time_to_date_J.end_of_month
       calendar #1か月分のカレンダー
     else
       

@@ -1,10 +1,19 @@
 module UsersHelper
-    def work_in_button(date)
-      if date == Date.today
-       @work_in_button = raw('<button type="button" class="btn btn-default">出社</button>')
-      else
-      end
-    end
+   
+  
+  def time_to_date_J        #Date.todayの挙動がUTC時間のようなので、Time.now→Date関数に日本時間に変換 
+    Date.parse((Time.now + 32400).to_s)
+  end
+  
+  
+  
+    #これたぶんつかってない
+    #def work_in_button(date)
+      #if date == Date.today
+       #@work_in_button = raw('<button type="button" class="btn btn-default">出社</button>')
+      #else
+      #end
+    #end
     
     # 以下　user/showから　呼び出される
     def match_in_hour(date)    #カレンダーの日付とtodyカラムが一致 かつ　in_timeが存在したらを表示
@@ -50,8 +59,8 @@ module UsersHelper
     
    
    
-  def work_days     #出勤日数をかぞえる  idかつ退社カラムがnilでないもの（1か月のレンジで）
-    Attendance.where(user_id: params[:id]).where.not(out_time: nil).where(today: @arrey[0]..@arrey[-1]).count
+  def work_days     #出勤日数をかぞえる  idかつ退社カラムがnilでないもの（1か月のレンジで）これだと、today：月初め～月末が一日ずれる可能性がある
+    Attendance.where(user_id: params[:id]).where.not(out_time: nil).where(today: @arrey[0]..@arrey[-1]).count   #out_timeに9時間足したものの日付の部分だけ使いたい？
     #debugger
   end
    

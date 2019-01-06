@@ -5,6 +5,7 @@ class AttendancesController < ApplicationController
   
   require "date"   #Dateクラスを使えるよう
   require "time"   # Timeクラスを使えるよ
+  include UsersHelper   #ヘルパーを読めるようにする
 
   #出勤ボタンが押されたら　DBに登録する
   def create
@@ -13,9 +14,10 @@ class AttendancesController < ApplicationController
     #@attendance=Attendance.new(in_time: Time.new)                         #test user_idはいらなかった
     
     if params[:button_name] == "in_office"    #ボタンが出社の場合
-      attendance=Attendance.new({user_id: params[:id], in_time: Time.new, today: Date.today}) #書き込みできた
+      attendance=Attendance.new({user_id: params[:id], in_time: Time.new, today: time_to_date_J}) #書き込みできた #Date.todayをJSTにするためにTime.nowをつかい　todyカラムはJSTとなる
     elsif params[:button_name] == "out_office"  #ボタンが退社の場合
-      attendance=Attendance.find_by({user_id: params[:id], today: Date.today})
+      #attendance=Attendance.find_by({user_id: params[:id], today: Date.today})
+      attendance=Attendance.find_by({user_id: params[:id], today: time_to_date_J})      #Date.todayをJSTにするためにTime.nowをつかい　todyカラムはJSTとなる
       attendance.update_attributes(out_time: Time.new) #退社時刻を登録
     else
     end
@@ -25,7 +27,7 @@ class AttendancesController < ApplicationController
     
     
     if attendance.save
-      flash[:success] = "出勤が登録されました。"
+      flash[:success] = "登録されました。"
       #@attendance.in_time      #test 値は入っているが、redirect_toで渡せない
       #debugger
       #redirect_to controller: 'users', action: 'show', params.permit({id: :id, in: @attendance.in_time}).to_h    #test
@@ -51,9 +53,9 @@ class AttendancesController < ApplicationController
     #@microposts = @user.microposts.paginate(page: params[:page])
     
     if params[:button_name] == nil
-      @current_day = Date.today                         #現在の日時を取得
-      @first_day = Date.today.beginning_of_month
-      @last_day = Date.today.end_of_month
+      @current_day = time_to_date_J             #現在の日時を取得
+      @first_day = time_to_date_J.beginning_of_month
+      @last_day = time_to_date_J.end_of_month
       calendar #1か月分のカレンダー
     else
       
