@@ -58,24 +58,35 @@ module UsersHelper
   end
     
    
-   
+  
   def work_days     #出勤日数をかぞえる  idかつ退社カラムがnilでないもの（1か月のレンジで）これだと、today：月初め～月末が一日ずれる可能性がある
     Attendance.where(user_id: params[:id]).where.not(out_time: nil).where(today: @arrey[0]..@arrey[-1]).count   #out_timeに9時間足したものの日付の部分だけ使いたい？
     #debugger
   end
    
    
+   
+   #在社時間の計算
   def hours_in_company(date)
     @attendance=Attendance.find_by({user_id: params[:id], today: date}) 
     if @attendance.nil?   #アカウントを登録しただけの場合
     
     elsif @attendance.out_time.present? && date == @attendance.today
       ((@attendance.out_time - @attendance.in_time) / 60 / 60).floor(2)      #秒単位から時間へ変換 切り捨て
-      
+     
     else
     end
   end
    
+  #@total_hours_in_company = 0      #クラスインスタンス変数
+  #在社時間の合計
+  def total_hours_in_company(hours)
+    hours
+  
+  end
+    
+    
+    
     
     
     
