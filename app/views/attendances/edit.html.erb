@@ -14,10 +14,10 @@
 </thead>
 
 <tbody class="bulk-registration-form">
-   <%= form_for(@user.id, user_path) do |f| %>
+   <%= form_for(@user, attendance_path) do |f| %>
    <tr>
-    <th>12/18</th>
-    <th>火</th>
+    <th><%= f.text_field :date %></th>
+    <th><%= f.text_field :yobi %></th>
     <th><% f.label :指定勤務時間 %>
       <%= f.time_field :in_time, class: 'form-control' %></th>
     <th>退社</th>
