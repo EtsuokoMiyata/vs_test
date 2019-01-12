@@ -13,17 +13,21 @@
   </tr>
 </thead>
 
+<!-- これより勤怠編集画面の　1か月分カレンダー始まり -->
 <tbody class="bulk-registration-form">
-   <%= form_for(@user, attendance_path) do |f| %>
+   <%= form_for(attendance_path) do |f| %>
+   <% require 'date' %>
+<% @arrey.each do |date| %>
    <tr>
-    <th><%= f.text_field :date %></th>
-    <th><%= f.text_field :yobi %></th>
-    <th><% f.label :指定勤務時間 %>
-      <%= f.time_field :in_time, class: 'form-control' %></th>
-    <th>退社</th>
-    <th>8.5</th>
-    <th>おすきにどうぞ</th>
+    <th><%= date.strftime("%-m/%-d") %></th>
+      <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
+    <th><%= date.strftime("#{wd[date.wday]}") %></th>
+    <th><%= edit_in_time(date) %></th>
+    <th><%= edit_out_time(date) %></th>
+    <th><%= hours_in_company(date) %></th>
+    <th><%#= text_field :yobi, :yobi %></th>
   </tr>
-  <% end %>  
+  <% end %>
+<% end %>
 </tbody>
 </table>

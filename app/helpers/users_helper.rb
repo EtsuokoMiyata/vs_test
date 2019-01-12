@@ -82,9 +82,27 @@ module UsersHelper
   #在社時間の合計
   def total_hours_in_company(hours)
     hours
-  
   end
     
+  def edit_in_time(date)    #勤怠編集ページの出社時間の表示
+    @attendance=Attendance.find_by({user_id: params[:id], today: date}) 
+    if @attendance.nil? 
+      
+    elsif @attendance.in_time.present? && date == @attendance.today
+      @attendance.in_time
+    else
+    end
+  end  
+   
+  def edit_out_time(date)    #勤怠編集ページの退社時間の表示
+    @attendance=Attendance.find_by({user_id: params[:id], today: date}) 
+    if @attendance.nil? 
+      
+    elsif @attendance.out_time.present? && date == @attendance.today
+      @attendance.out_time
+    else
+    end
+  end   
     
     
     

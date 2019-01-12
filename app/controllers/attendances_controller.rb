@@ -130,6 +130,13 @@ class AttendancesController < ApplicationController
   
   
   def edit
+    @user=User.find(params[:id])
+    #debugger
+    first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
+    @first_day = Date.strptime(first.gsub(/\//, '-'))
+    @last_day = Date.strptime(last.gsub(/\//, '-'))
+    @current_day = Date.strptime(current.gsub(/\//, '-'))
+    calendar #1か月分のカレンダー
   end
   
   def update

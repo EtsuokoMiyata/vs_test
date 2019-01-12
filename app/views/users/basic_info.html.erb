@@ -2,7 +2,7 @@
 <% provide(:title, "基本情報の更新") %>
 <h1><font color="#0101DF">基本情報の更新</h1>
   <!-- アドミンで入ったときに パラムズのidと　@userのidが　ちがうので、パラムズのidを代入する -->
-  <%# @user = User.find_by(id: params[:id]) %>
+  <% @user = User.find_by(id: params[:id]) %>
   <%# @user.id = params[:id] %>
   <!-- 下記　値を確認するために　一時的に表示 -->
    @user.id <%= @user.id %> 氏名：<%= @user.name %>  params id：<%= params[:id] %>
