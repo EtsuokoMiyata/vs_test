@@ -110,17 +110,17 @@ class AttendancesController < ApplicationController
     end
   end
   
-  def basic_info  #特定のユーザーの指定基本時間を表示する
+  #def basic_info  #特定のユーザーの指定基本時間を表示する
     #@user = current_user
     #debugger
     
     
     #@user = User.find(params[:id] = params[:format]) 
     #@user = User.find(params[:format])        #:formatを使うとうまくいく
-    @user = User.find_by(params[:id])
-    @fixed_time = @user.fixed_work_time       #timeフィールドにから値を取得
-    @basic_time = @user.basic_work_time       #timeフィールドにから値を取得
-  end
+    #@user = User.find_by(params[:id])
+    #@fixed_time = @user.fixed_work_time       #timeフィールドにから値を取得
+    #@basic_time = @user.basic_work_time       #timeフィールドにから値を取得
+  #end
   
   #def work_in_button(date)
        #@work_in_button = '<button type="button" class="btn btn-default">出社</button>'

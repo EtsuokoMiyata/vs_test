@@ -30,17 +30,27 @@
         <th><%= time_field name="in_time", value="00:00", class: "form-control" %></th>
         <th><%= time_field name="out_time", value="00:00", class: "form-control" %></th>
         <th></th>
-        <th></th>  
+        <th></th>
+         </tr>
         <%# end %>
       <% else %>
+      
         <%= form_for(@attendance, url: attendance_path) do |f| %>
           <th><%= f.time_field :in_time, class: "form-control" %></th>
           <th><%= f.time_field :out_time, class: "form-control" %></th>
           <th><%= hours_in_company(date) %></th>
           <th></th>
+           </tr>
+           <!-- 最後の行（月末）だったら、編集・キャンセルボタンを表示 -->
+        
         <% end %>
+        
       <% end %>
-  </tr>
+ </tbody>
 <% end %>
-</tbody>
 </table>
+
+
+<%#= f.submit "編集",  name:"attendance_submit", class: "btn btn-primary" %>
+<button type="button" class="btn btn-warning">キャンセル</button>
+<button type="button" class="btn btn-primary">更　　新</button>
