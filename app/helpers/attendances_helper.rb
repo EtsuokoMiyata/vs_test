@@ -1,5 +1,6 @@
 module AttendancesHelper
-  
+require 'date'
+require 'time'
  
   
   
@@ -42,6 +43,15 @@ module AttendancesHelper
     else
     end
   end
+  
+  
+ 
+  def mk_time(mktime)     #出退勤ボタンを押したときに　秒以下を00にして登録する.
+  @mktime=DateTime.parse(mktime.to_s.gsub(/\//, '-')) #編集画面に10：10のように表示する
+  
+    #debugger
+  end
+  
   
   
 end

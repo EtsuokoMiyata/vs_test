@@ -6,6 +6,7 @@ class AttendancesController < ApplicationController
   require "date"   #Dateクラスを使えるよう
   require "time"   # Timeクラスを使えるよ
   include UsersHelper   #ヘルパーを読めるようにする
+  include AttendancesHelper   #ヘルパーを読めるようにする
 
   #出勤ボタンが押されたら　DBに登録する
   def create
@@ -14,11 +15,14 @@ class AttendancesController < ApplicationController
     #@attendance=Attendance.new(in_time: Time.new)                         #test user_idはいらなかった
     
     if params[:button_name] == "in_office"    #ボタンが出社の場合
-      attendance=Attendance.new({user_id: params[:id], in_time: Time.new, today: time_to_date_J}) #書き込みできた #Date.todayをJSTにするためにTime.nowをつかい　todyカラムはJSTとなる
+      #mk_time(Time.new)     #秒以下を00で表示させる
+      attendance=Attendance.new({user_id: params[:id], in_time: mk_time(Time.new), today: time_to_date_J}) #書き込みできた #Date.todayをJSTにするためにTime.nowをつかい　todyカラムはJSTとなる
+      #attendance.in_time
+      #debugger
     elsif params[:button_name] == "out_office"  #ボタンが退社の場合
       #attendance=Attendance.find_by({user_id: params[:id], today: Date.today})
       attendance=Attendance.find_by({user_id: params[:id], today: time_to_date_J})      #Date.todayをJSTにするためにTime.nowをつかい　todyカラムはJSTとなる
-      attendance.update_attributes(out_time: Time.new) #退社時刻を登録
+      attendance.update_attributes(out_time: mk_time(Time.new)) #退社時刻を登録
     else
     end
     
@@ -131,7 +135,7 @@ class AttendancesController < ApplicationController
   
   def edit
     @user=User.find(params[:id])
-    #debugger
+    #@attendance=Attendance.find_by({user_id: params[:id], today: test(date)}) 
     first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
     @first_day = Date.strptime(first.gsub(/\//, '-'))
     @last_day = Date.strptime(last.gsub(/\//, '-'))
