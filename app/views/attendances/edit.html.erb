@@ -27,8 +27,8 @@
       <% if @attendance.nil? %>
         <%#= form_for(@attendance, url: attendance_path) do |f| %>
        
-        <th><%= time_field name="in_time", value="00:00", class: "form-control" %></th>
-        <th><%= time_field name="out_time", value="00:00", class: "form-control" %></th>
+        <th><%= time_field name="in_time_new", class: "form-control" %></th>
+        <th><%= time_field name="out_time_new", class: "form-control" %></th>
         <th></th>
         <th></th>
          </tr>
@@ -52,5 +52,5 @@
 
 
 <%#= f.submit "編集",  name:"attendance_submit", class: "btn btn-primary" %>
-<button type="button" class="btn btn-warning">キャンセル</button>
+<button type="submit" class="btn btn-warning">キャンセル</button>
 <button type="button" class="btn btn-primary">更　　新</button>

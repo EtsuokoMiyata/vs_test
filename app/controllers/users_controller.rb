@@ -79,7 +79,8 @@ class UsersController < ApplicationController
   end
   
   def basic_info  #特定のユーザーの指定基本時間を表示する
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:id])
+    #@user = User.find_by(params[:id])
     @fixed_time = @user.fixed_work_time       #timeフィールドにから値を取得
     @basic_time = @user.basic_work_time       #timeフィールドにから値を取得
   end
