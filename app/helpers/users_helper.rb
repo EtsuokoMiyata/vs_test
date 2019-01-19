@@ -104,11 +104,11 @@ module UsersHelper
     end
   end   
     
-   def edit_form_for(date)    #勤怠編集ページのform_forにわたす
-    @attendance=Attendance.find_by({user_id: params[:id], today: date}) 
+   #def edit_form_for(date)    #勤怠編集ページのform_forにわたす
+    #@attendance=Attendance.find_by({user_id: params[:id], today: date}) 
     #@time.time      #@attendanceがnilの場合の初期値0設定
     #debugger
-   end    
+   #end    
     
     
     

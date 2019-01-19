@@ -136,11 +136,23 @@ class AttendancesController < ApplicationController
   def edit
     @user=User.find(params[:id])
     #@attendance=Attendance.find_by({user_id: params[:id], today: test(date)}) 
+    #@attendance=Attendance.find_by({user_id: params[:id]}) 
+   
+    
     first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
     @first_day = Date.strptime(first.gsub(/\//, '-'))
     @last_day = Date.strptime(last.gsub(/\//, '-'))
     @current_day = Date.strptime(current.gsub(/\//, '-'))
+    
+    @attendances=Array.new
+    @attendances=Attendance.where({user_id: params[:id], today: @first_day...@last_day}) #1か月間の出勤データを配列にする
+    @i=@attendances.length #配列の数
+    #= @user.attendances.where(today: @first_day...@last_day) #1か月間の出勤データを配列にする
+    #@atten = @user.attendances.find_by(params[:id])
+    #debugger
+    
     calendar #1か月分のカレンダー
+    #debugger
   end
   
   def update
@@ -166,6 +178,10 @@ class AttendancesController < ApplicationController
     def correct_user
       @attendance = current_user.attendances.find_by(id: params[:id])
       redirect_to root_url if @attendance.nil?
+    end
+    
+    def attendances_params    #勤怠編集画面のfields_for用
+    params.permit(attendances: [:in_time, :out_time])[:attendances]
     end
   
 end

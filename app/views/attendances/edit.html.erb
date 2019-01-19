@@ -2,6 +2,9 @@
 <!-- これより勤怠編集画面 -->
 <% require 'date' %>
 <% require 'time' %>
+
+<%= @i %>
+
 <table table class="table table-striped table-bordered">
 <thead>
   <tr>
@@ -16,41 +19,79 @@
 
 <!-- これより勤怠編集画面の　1か月分カレンダー始まり -->
 <tbody class="bulk-registration-form">
-<% require 'date' %>
-<% require 'time' %>
-<% @arrey.each do |date| %>
-   <tr>
-    <th><%= date.strftime("%-m/%-d") %></th>
-    <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
-    <th><%= date.strftime("#{wd[date.wday]}") %></th>
-    <% edit_form_for(date) %>
-      <% if @attendance.nil? %>
-        <%#= form_for(@attendance, url: attendance_path) do |f| %>
-       
-        <th><%= time_field name="in_time_new", class: "form-control" %></th>
-        <th><%= time_field name="out_time_new", class: "form-control" %></th>
-        <th></th>
-        <th></th>
-         </tr>
-        <%# end %>
-      <% else %>
-      
-        <%= form_for(@attendance, url: attendance_path) do |f| %>
-          <th><%= f.time_field :in_time, class: "form-control" %></th>
-          <th><%= f.time_field :out_time, class: "form-control" %></th>
-          <th><%= hours_in_company(date) %></th>
-          <th></th>
-           </tr>
-           <!-- 最後の行（月末）だったら、編集・キャンセルボタンを表示 -->
+<%= form_for(@user, url: attendance_path) do |f| %>
+  
+    
+    
+    
+  <% @attendances.each do |atten| %> 
+     <%# @arrey.each do |date| %>
         
+    <tr>
+    <%= fields_for "attendances[]", atten do |ff| %>
+    <% @i = @i.to_i-1 %>
+      <% for @first_day in @first_day..@last_day %>
+        <%# if date = atten[:today] %>
+        <% @first_day + 1 %><%#= date.strftime("%-m/%-d") %>
+          <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
+          <th><%= @first_day %></td>
+          <th><%= @first_day.strftime("#{wd[@first_day.wday]}") %></th>
+        
+          <%#= atten[:today] %>
+        
+            <% case @first_day when atten[:today] %>
+               <th><%= ff.time_field :in_time,  class: "form-control" %></th>
+               <th><%= ff.time_field :out_time, class: "form-control" %></th>
+               <th></td>
+               <th></th>
+                
+            <% else %>
+               <th><%= ff.time_field :in_time,  value: "", class: "form-control" %></th>
+               <th><%= ff.time_field :out_time, value: "", class: "form-control" %></th>
+               <th></td>
+               <th></th>
+             
+              <%# break %>
+              
+            <% end %><!-- caseの締め -->
+          </tr>
+        <% if  @first_day == atten[:today] and @i.to_i > 0 %><!-- まだ月末まで書いてないときforループぬける。 -->
+             <% break %>
+        <% elsif @first_day == atten[:today] and @i.to_i == 0 %><!-- 最後の配列要素の時、月末まで書いてforループぬける。 -->
+            <% for @first_day in @first_day..@last_day %>
+              <% @first_day + 1 %><%#= date.strftime("%-m/%-d") %>
+              <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
+              <th><%= @first_day %></td>
+              <th><%= @first_day.strftime("#{wd[@first_day.wday]}") %></th>
+               <th><%= ff.time_field :in_time, class: "form-control" %></th>
+               <th><%= ff.time_field :out_time, class: "form-control" %></th>
+               <th></td>
+               <th></th>
+               </tr>
+             <% end %><!-- forの締め --> 
+             </tr>
+             <% break %>  
+        <% else %>
         <% end %>
         
-      <% end %>
- </tbody>
-<% end %>
+      <% end %><!-- forの締め -->
+            
+            </tr>
+            <%# break %>
+      
+    
+    
+            
+    <% end %><!-- fields_forの締め -->
+          <%# break %>
+          
+        <%# end %><!-- @attendances.each文の締め -->
+    
+  <% end %><!-- @attendances.each 文の締め-->
+</tbody>
 </table>
+<%= f.submit "編集内容で更新", style:"width:300px", class: "btn btn-primary" %>
+<% end %><!-- form_for文の締め-->
 
 
-<%#= f.submit "編集",  name:"attendance_submit", class: "btn btn-primary" %>
-<button type="submit" class="btn btn-warning">キャンセル</button>
-<button type="button" class="btn btn-primary">更　　新</button>
+
