@@ -16,16 +16,38 @@
     <th>備考</th>
   </tr>
 </thead>
+ <tr>
+     <% if @attendances.empty? %><!--1件もデータなし　-->
+       <% for @current_day in @first_day..@last_day %>
+          <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
+          <th><%= @current_day %></td>
+          <th><%= @current_day.strftime("#{wd[@current_day.wday]}") %></th>
+          <% @current_day= @current_day + 1 %>
+           <th></td>
+            <th></th>
+            <th></th><th></th>
+            </tr>
+            
+            <% end %>
+            </tbody>
+</table>
+     <% else %>
+     
+     <% end %>
+
+
+
 
 <!-- これより勤怠編集画面の　1か月分カレンダー始まり -->
 <tbody class="bulk-registration-form">
 <%= form_for(@user, url: attendance_path) do |f| %>
+   
   
     
     
     
   <% @attendances.each do |atten| %> 
-     <%# @arrey.each do |date| %>
+  
         
     <tr>
     <%= fields_for "attendances[]", atten do |ff| %>

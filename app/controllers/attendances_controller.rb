@@ -152,7 +152,7 @@ class AttendancesController < ApplicationController
     #debugger
     
     calendar #1か月分のカレンダー
-    #debugger
+    debugger
   end
   
   def update
