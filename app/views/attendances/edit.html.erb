@@ -4,6 +4,7 @@
 <% require 'time' %>
 
 <%= @i %>
+<%= @test %>
 
 <table table class="table table-striped table-bordered">
 <thead>
@@ -16,24 +17,7 @@
     <th>備考</th>
   </tr>
 </thead>
- <tr>
-     <% if @attendances.empty? %><!--1件もデータなし　-->
-       <% for @current_day in @first_day..@last_day %>
-          <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
-          <th><%= @current_day %></td>
-          <th><%= @current_day.strftime("#{wd[@current_day.wday]}") %></th>
-          <% @current_day= @current_day + 1 %>
-           <th></td>
-            <th></th>
-            <th></th><th></th>
-            </tr>
-            
-            <% end %>
-            </tbody>
-</table>
-     <% else %>
-     
-     <% end %>
+ 
 
 
 
@@ -41,86 +25,30 @@
 <!-- これより勤怠編集画面の　1か月分カレンダー始まり -->
 <tbody class="bulk-registration-form">
 <%= form_for(@user, url: attendance_path) do |f| %>
-   
-  
-    
-    
-    
   <% @attendances.each do |atten| %> 
-  
-        
     <tr>
     <%= fields_for "attendances[]", atten do |ff| %>
-    <% @i = @i.to_i-1 %>
-      <% for @first_day in @first_day..@last_day %>
-        <%# if date = atten[:today] %>
-        <% @first_day %><%#= date.strftime("%-m/%-d") %>
+          <!--日付-->
+         <th><%= @first_day.strftime("%-m/%-d") %></td>
+          <!--曜日-->
           <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
-          <th><%= @first_day %></td>
           <th><%= @first_day.strftime("#{wd[@first_day.wday]}") %></th>
-        
-          <%#= atten[:today] %>
-        
-            <% case @first_day when atten[:today] %><!-- 出退勤データあり-->
-               <th><%= ff.time_field :in_time,  class: "form-control" %></th>
+          
+             <% if  atten.nil? %>
+               <th><%= ff.time_field :in_time, value: "", class: "form-control" %></th>
+               <th><%= ff.time_field :out_time, value: "", class: "form-control" %></th>
+                <th></th>
+                <th></th>
+                <th><% @first_day = @first_day + 1 %></td>
+                <% else %>
+                <th><%= ff.time_field :in_time, class: "form-control" %></th>
                <th><%= ff.time_field :out_time, class: "form-control" %></th>
-               <th></td>
-               <th></th>
-                <% @first_day= @first_day+1 %>
-            <% else %><!-- 出勤のみデータあり退勤さすれた人-->
-              <% if atten[:in_time].nil? %>
-               <th><%= ff.time_field :in_time, class: "form-control" %></th>
-               <th><%= ff.time_field :out_time, value: "", class: "form-control" %></th>
-               <th></td>
-               <th></th>
-               <% @first_day= @first_day+1 %>
-              <% else %>
-               <th><%= ff.time_field :in_time,  value: "", class: "form-control" %></th>
-               <th><%= ff.time_field :out_time, value: "", class: "form-control" %></th>
-               <th></td>
-               <th></th>
-              <% end %><!-- if atten[:in_time]?の締め-->
-              <%# break %>
-              
-            <% end %><!-- caseの締め -->
-          </tr>
-        <% if  @first_day == atten[:today] and @i.to_i > 0 %><!-- まだ月末まで書いてないときforループぬける。 -->
-             <% @first_day= @first_day+1 %>
-             <% break %>
-        <% elsif @first_day == atten[:today] and @i.to_i == 0 %><!-- 最後の配列要素の時、月末まで書いてforループぬける。 -->
-            <% for @first_day in @first_day..@last_day %>
-              <% @first_day + 1 %><%#= date.strftime("%-m/%-d") %>
-              <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
-              <th><%= @first_day %></td>
-              <th><%= @first_day.strftime("#{wd[@first_day.wday]}") %></th>
-               <th><%= ff.time_field :in_time,  value: "", class: "form-control" %></th>
-               <th><%= ff.time_field :out_time, value: "", class: "form-control" %></th>
-               <th></td>
-               <th></th>
-               </tr>
-               <% if @first_day==@last_day %>
-                 <% break %>
-               <% else %>
-               <% end %>
-             <% end %><!-- forの締め --> 
-             </tr>
-             <% break %>  
-        <% else %>
-        <% end %>
-        
-      <% end %><!-- forの締め -->
-            
-            </tr>
-            <%# break %>
-      
-    
-    
+                <th></th>
+                <th></th>
+                <th><% @first_day = @first_day + 1 %></td>
+              <% end %><!-- if文締め-->
             
     <% end %><!-- fields_forの締め -->
-          <%# break %>
-          
-        <%# end %><!-- @attendances.each文の締め -->
-    
   <% end %><!-- @attendances.each 文の締め-->
 </tbody>
 </table>

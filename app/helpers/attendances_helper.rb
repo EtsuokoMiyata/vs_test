@@ -52,6 +52,16 @@ require 'time'
     #debugger
   end
   
+  def day(today)
+    @md=@first_day
+    #debugger
+    for @i in today..@last_day do
+      
+     @test="<th><%== @i %></th>"
+     
+     
+    end
+  end
   
   
 end

@@ -144,15 +144,39 @@ class AttendancesController < ApplicationController
     @last_day = Date.strptime(last.gsub(/\//, '-'))
     @current_day = Date.strptime(current.gsub(/\//, '-'))
     
-    @attendances=Array.new
-    @attendances=Attendance.where({user_id: params[:id], today: @first_day...@last_day}) #1か月間の出勤データを配列にする
+    #@attendances=Array.new
+    #@attendances=Attendance.where({user_id: params[:id], today: @first_day...@last_day}) #1か月間の出勤データを配列にする
+   #カレンダーの日付が配列になかったら、today:に カレンダー日付を入れる
+   
+   
+   
+   #出勤又は退社データのどちらかがあるレコードを配列にいれる。
+   @attendances=Array.new
+    for date_month in @first_day...@last_day+1 do
+    today_check = Attendance.find_by({user_id: params[:id], today: date_month})
+      if today_check.nil?
+        @attendances.push(nil)
+        
+      else
+        #debugger
+       @attendances.push(today_check)
+      end #ifの締め
+    end   #forの締め
+    #@attendances=hash
+    @test=@attendances.length
+    #debugger
+   
+   
+   
+   
+   
     @i=@attendances.length #配列の数
     #= @user.attendances.where(today: @first_day...@last_day) #1か月間の出勤データを配列にする
     #@atten = @user.attendances.find_by(params[:id])
     #debugger
     
     calendar #1か月分のカレンダー
-    debugger
+    #debugger
   end
   
   def update
