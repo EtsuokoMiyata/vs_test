@@ -157,8 +157,6 @@ class AttendancesController < ApplicationController
       end  #each文締め
       @attendances=Attendance.where({user_id: params[:id], today: @first_day..@last_day}).order(today: :asc)
   #debugger
-      render :edit  #レンダーさせて、ボタンをリロードさせる
-  
   end
  
     
@@ -171,22 +169,55 @@ class AttendancesController < ApplicationController
   
  #勤怠更新アクション---------------------------------------------------- 
   def attendance_update_all   #とりあえず、更新できるかどうか？？
-  
-
   @user = User.find_by(id: params[:user_id]) #ユーザー情報を取得
+  error_count = 0
+  message=""
   
-  
-  attendances_params.each do |id,item|
-    attendance = Attendance.find(id)
     
-    attendance.update_attributes(item)
-    #byebug
+    #current=params[:current_day]
+    #debugger
+    #@current_day = Date.strptime(current.gsub(/\//, '-'))
     
-  end
-  flash[:success] = '勤怠時間を更新しました'
+    
+    
+    attendances_params.each do |id, item|  #paramsを使って、エラーチェックをする
+      attendance = Attendance.find(id)
+      #debugger
+      if item["in_time"].present? && item["out_time"].blank?  #出退勤2つのデータが存在するか？
+      
+        message="退勤データを入力してください。"
+        error_count +=1
+      elsif item["in_time"].blank? && item["out_time"].present?  #出退勤2つのデータが存在するか？
+        message="出勤データを入力してください。"
+        error_count +=1  
+        
+        
+      #elsif attendance.today > @current_day               #明日以降の編集は不可
+        #message = '未来の編集はできません。'
+        
+      elsif item[:in_time].to_s > item[:out_time].to_s  
+      #出勤より退勤が早くないか？ 
+        message = '出勤時間より退勤時間が早いデータは更新できません。'
+        error_count +=1
+      end  #if文の締め  
+    end #each文の締め
   
-   redirect_to @user
   
+  if error_count > 0
+    
+    flash[:warning] =message
+    redirect_to "/attendances/#{@user.id}/edit"  #明日のつづき・・・
+    
+  else
+    attendances_params.each do |id,item|
+      attendance = Attendance.find(id)
+      attendance.update_attributes(item)
+    end  #each文締め
+    flash[:success] = '勤怠時間を更新しました'
+    redirect_to @user
+  end    #if文締め
+  
+   
   end
   
   
