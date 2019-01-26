@@ -157,6 +157,8 @@ class AttendancesController < ApplicationController
       end  #each文締め
       @attendances=Attendance.where({user_id: params[:id], today: @first_day..@last_day}).order(today: :asc)
   #debugger
+      render :edit  #レンダーさせて、ボタンをリロードさせる
+  
   end
  
     
