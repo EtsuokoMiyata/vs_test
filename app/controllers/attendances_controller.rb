@@ -1,4 +1,5 @@
 class AttendancesController < ApplicationController
+  require 'byebug'
   #before_action :logged_in_user, only: [:create, :edit, :update]
   #before_action :correct_user,   only: [:create, :destroy, :edit, :update]
   #before_action :admin_user,   only: :destroy
@@ -110,78 +111,96 @@ class AttendancesController < ApplicationController
     end
   end
   
-  #def basic_info  #特定のユーザーの指定基本時間を表示する
-    #@user = current_user
-    #debugger
-    
-    
-    #@user = User.find(params[:id] = params[:format]) 
-    #@user = User.find(params[:format])        #:formatを使うとうまくいく
-    #@user = User.find_by(params[:id])
-    #@fixed_time = @user.fixed_work_time       #timeフィールドにから値を取得
-    #@basic_time = @user.basic_work_time       #timeフィールドにから値を取得
-  #end
-  
-  #def work_in_button(date)
-       #@work_in_button = '<button type="button" class="btn btn-default">出社</button>'
-  #end
-  
-  
-  
   
 #--------------これまで勤怠表示画面↑------------------------  
   
   
-  
+  #勤怠編集ページの表示---------------------------------------
   def edit
     @user=User.find(params[:id])
-    #@attendance=Attendance.find_by({user_id: params[:id], today: test(date)}) 
-    #@attendance=Attendance.find_by({user_id: params[:id]}) 
+    @attendance = Attendance.find(params[:id])
+    #debugger
+     
    
     
-    first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
+    #first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
+    first=params[:first_day]
+    last=params[:last_day]
     @first_day = Date.strptime(first.gsub(/\//, '-'))
     @last_day = Date.strptime(last.gsub(/\//, '-'))
-    @current_day = Date.strptime(current.gsub(/\//, '-'))
+    #current_day = Date.strptime(current.gsub(/\//, '-'))
     
     #@attendances=Array.new
     #@attendances=Attendance.where({user_id: params[:id], today: @first_day...@last_day}) #1か月間の出勤データを配列にする
-   #カレンダーの日付が配列になかったら、today:に カレンダー日付を入れる
+    #カレンダーの日付が配列になかったら、today:に カレンダー日付を入れる
    
    
    
-   #出勤又は退社データのどちらかがあるレコードを配列にいれる。
-   @attendances=Array.new
-    for date_month in @first_day...@last_day+1 do
-    today_check = Attendance.find_by({user_id: params[:id], today: date_month})
-      if today_check.nil?
-        @attendances.push(nil)
-        
+   
+   
+    (@first_day..@last_day).each do |date|  #出退勤データのない日を登録する
+    attendance=Attendance.find_by({user_id: params[:id], today: date}) #find_byは一件のみ表示なのでバグがわかりずらい
+      #if !Attendance.where({user_id: params[:id], today: date}).any?     #モデルが存在するかどうか？
+      
+      if attendance.nil?
+      
+          attendance=Attendance.new(user_id: @user.id, today: date)
+          
+          attendance.save
       else
-        #debugger
-       @attendances.push(today_check)
-      end #ifの締め
-    end   #forの締め
-    #@attendances=hash
-    @test=@attendances.length
-    #debugger
-   
-   
-   
-   
-   
-    @i=@attendances.length #配列の数
-    #= @user.attendances.where(today: @first_day...@last_day) #1か月間の出勤データを配列にする
-    #@atten = @user.attendances.find_by(params[:id])
-    #debugger
-    
-    calendar #1か月分のカレンダー
-    #debugger
+        
+      end      #if文締め
+
+      #1か月間の出勤データを配列にする
+      
+      #debugger
+      end  #each文締め
+      @attendances=Attendance.where({user_id: params[:id], today: @first_day..@last_day}).order(today: :asc)
+  #debugger
   end
+ 
+    
+    
+    
+    
   
   def update
+  end
+  
+ #勤怠更新アクション---------------------------------------------------- 
+  def attendance_update_all   #とりあえず、更新できるかどうか？？
+  
+
+  @user = User.find_by(id: params[:user_id]) #ユーザー情報を取得
+  
+  
+  attendances_params.each do |id,item|
+    attendance = Attendance.find(id)
+    
+    attendance.update_attributes(item)
+    #byebug
     
   end
+  flash[:success] = '勤怠時間を更新しました'
+  
+   redirect_to @user
+  
+  end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -195,17 +214,20 @@ class AttendancesController < ApplicationController
 
   private
     #ストロングンパラメータ
-    def attendance_params
-      params.require(:attendance).permit(:in_time, :out_time)
-    end
-    
     def correct_user
       @attendance = current_user.attendances.find_by(id: params[:id])
       redirect_to root_url if @attendance.nil?
     end
     
-    def attendances_params    #勤怠編集画面のfields_for用
-    params.permit(attendances: [:in_time, :out_time])[:attendances]
+    
+    def attendance_params   #出社・退社の時のsave時用
+      params.require(:attendance).permit(:in_time, :out_time)
     end
-  
+    
+    
+    
+    
+    def attendances_params   #勤怠編集画面のfields_for用
+      params.permit(attendances:[:id, :in_time, :out_time, :user_id])[:attendances]
+    end
 end

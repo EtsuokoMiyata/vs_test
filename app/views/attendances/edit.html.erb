@@ -3,8 +3,8 @@
 <% require 'date' %>
 <% require 'time' %>
 
-<%= @i %>
-<%= @test %>
+<%= @first_day %><!--@first_day　回して月末になったから@last_dayで代用-->
+<%#= @test %>
 
 <table class="table table-striped table-bordered">
 <thead>
@@ -22,38 +22,37 @@
 
 
 
-<!-- これより勤怠編集画面の　1か月分カレンダー始まり -->
+
 <tbody class="bulk-registration-form">
-<%= form_for(@user, url: attendance_path) do |f| %>
-  <% @attendances.each do |atten| %> 
+<%= form_for(@user, url: attendance_update_all_path, method: :post) do |f| %>
+<%= hidden_field_tag :user_id, @user.id %>
+<%= hidden_field_tag :first_day, @first_day %>
+
+  <% @attendances.each do |atte| %> 
     <tr>
-    <%= fields_for "attendances[]", atten do |ff| %>
+    <%= fields_for "attendances[]", atte do |ff| %>
           <!--日付-->
-         <th><%= @first_day.strftime("%-m/%-d") %></td>
+         <th><%= atte.today.strftime("%-m/%-d") %></td>
           <!--曜日-->
           <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
-          <th><%= @first_day.strftime("#{wd[@first_day.wday]}") %></th>
+          <th><%= atte.today.strftime("#{wd[atte.today.wday]}") %></th>
           
-             <% if  atten.nil? %>
-               <th><%= ff.time_field :in_time, value: "", class: "form-control" %></th>
-               <th><%= ff.time_field :out_time, value: "", class: "form-control" %></th>
-                <th></th>
-                <th><% @first_day = @first_day + 1 %></td>
-                <% else %>
-                <th><%= ff.time_field :in_time, class: "form-control" %></th>
-               <th><%= ff.time_field :out_time, class: "form-control" %></th>
-                  <% if  atten.out_time.nil? %>
-                   <th></th>
-                  <% else %>
-                    <th><%= ((atten.out_time - atten.in_time) / 60 / 60).floor(2) %></th>
-                  <% end %><!--if文の締め-->
-                <th><% @first_day = @first_day + 1 %></td>
-              <% end %><!-- if文締め-->
-            
+          <th><%= ff.time_field :in_time, class: "form-control" %></th>
+          <th><%= ff.time_field :out_time, class: "form-control" %></th>
+          <% if  atte.out_time.nil? %>
+          <th></th>
+          <th></th>
+          <% else %>
+          <th><%= ((atte.out_time - atte.in_time) / 60 / 60).floor(2) %></th>
+          <th></th>
+          <th></th>
+          <% end %><!--if文の締め-->
+              
     <% end %><!-- fields_forの締め -->
   <% end %><!-- @attendances.each 文の締め-->
 </tbody>
 </table>
+
 <%= f.submit "編集内容で更新", style:"width:300px", class: "btn btn-primary" %>
 <% end %><!-- form_for文の締め-->
 

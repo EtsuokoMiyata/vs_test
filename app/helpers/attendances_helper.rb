@@ -48,20 +48,9 @@ require 'time'
  
   def mk_time(mktime)     #出退勤ボタンを押したときに　秒以下を00にして登録する.
   @mktime=DateTime.parse(mktime.to_s.gsub(/\//, '-')) #編集画面に10：10のように表示する
-  
     #debugger
   end
   
-  def day(today)
-    @md=@first_day
-    #debugger
-    for @i in today..@last_day do
-      
-     @test="<th><%== @i %></th>"
-     
-     
-    end
-  end
   
   
 end
