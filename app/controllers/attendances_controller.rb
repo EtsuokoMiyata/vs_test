@@ -215,7 +215,7 @@ class AttendancesController < ApplicationController
   if error_count > 0
     
     flash[:warning] =message
-    redirect_to edit_attendance_url(@user, first_day: @first_day, last_day: @last_day,current_day: @current_day)
+    redirect_to edit_attendance_url(@user, first_day: @first_day, last_day: @last_day,current_day: @current_day, button_name: 'cancel')
     #debugger
     
   else

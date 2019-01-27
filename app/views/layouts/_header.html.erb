@@ -16,8 +16,11 @@
         
         
         <% if logged_in? %>
-        
-          <li><%= link_to "ユーザー一覧", users_path(button_name: 'index') %></li>
+          <!--一般ユーザは　ユーザー一覧を表示しない -->
+          <% if current_user.admin? %>
+            <li><%= link_to "ユーザー一覧", users_path(button_name: 'index') %></li>
+          <% else %>
+          <% end %>
           
           <!--  ユーザー一覧を押したときと　又は　[:id]がなかったときでHTML表示かえる  -->
           <% if params[:button_name] == "index" or params[:id].nil? %> 
