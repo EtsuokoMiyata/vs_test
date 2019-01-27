@@ -4,6 +4,8 @@
 <% require 'time' %>
 
 <%= @first_day %><!--@first_day　回して月末になったから@last_dayで代用-->
+<%= @last_day %>
+<%= @current_day %>
 <%#= @test %>
 
 <table class="table table-striped table-bordered">
@@ -28,6 +30,7 @@
 
 <%= hidden_field_tag :current_day, @current_day %>
 <%= hidden_field_tag :first_day, @first_day %>
+<%= hidden_field_tag :last_day, @last_day %>
 <%= hidden_field_tag :user_id, @user.id %>
 
   <% @attendances.each do |atte| %> 

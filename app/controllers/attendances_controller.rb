@@ -112,7 +112,7 @@ class AttendancesController < ApplicationController
   end
   
   
-#--------------これまで勤怠表示画面↑------------------------  
+
   
   
   #勤怠編集ページの表示---------------------------------------
@@ -126,10 +126,11 @@ class AttendancesController < ApplicationController
     #first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
     first=params[:first_day]
     last=params[:last_day]
+    current=params[:current_day]
     #debugger
     @first_day = Date.strptime(first.gsub(/\//, '-'))
     @last_day = Date.strptime(last.gsub(/\//, '-'))
-    #current_day = Date.strptime(current.gsub(/\//, '-'))
+    @current_day = Date.strptime(current.gsub(/\//, '-'))
     
     #@attendances=Array.new
     #@attendances=Attendance.where({user_id: params[:id], today: @first_day...@last_day}) #1か月間の出勤データを配列にする
@@ -174,11 +175,16 @@ class AttendancesController < ApplicationController
   error_count = 0
   message=""
   
+    first=params[:first_day]
+    last=params[:last_day]
+    current=params[:current_day]
+    #@current_day=time_to_date_J 
     
-    #current=params[:current_day]
     #debugger
-    #@current_day = Date.strptime(current.gsub(/\//, '-'))
-    
+    @first_day = Date.strptime(first.gsub(/\//, '-')) #正規表現で　"2018/01/03"→"2017-09-03"にする
+    @last_day = Date.strptime(last.gsub(/\//, '-'))
+    @current_day = Date.strptime(current.gsub(/\//, '-'))
+    #debugger
     
     
     attendances_params.each do |id, item|  #paramsを使って、エラーチェックをする
@@ -193,8 +199,10 @@ class AttendancesController < ApplicationController
         error_count +=1  
         
         
-      #elsif attendance.today > @current_day               #明日以降の編集は不可
-        #message = '未来の編集はできません。'
+      elsif (item["in_time"].present? || item["out_time"].present?) && attendance.today > time_to_date_J && !current_user.admin             #一般ユーザーは明日以降の編集は不可
+      #debugger  #attendance.todayの値がおかしい　連続してエラーでたら？？
+        message = '明日以降の編集はできません。'
+        error_count +=1
         
       elsif item[:in_time].to_s > item[:out_time].to_s  
       #出勤より退勤が早くないか？ 
@@ -207,7 +215,8 @@ class AttendancesController < ApplicationController
   if error_count > 0
     
     flash[:warning] =message
-    redirect_to "/attendances/#{@user.id}/edit"  #明日のつづき・・・
+    redirect_to edit_attendance_url(@user, first_day: @first_day, last_day: @last_day,current_day: @current_day)
+    #debugger
     
   else
     attendances_params.each do |id,item|
