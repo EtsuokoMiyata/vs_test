@@ -192,10 +192,10 @@ class AttendancesController < ApplicationController
       #debugger
       if item["in_time"].present? && item["out_time"].blank?  #出退勤2つのデータが存在するか？
       
-        message="退勤データを入力してください。"
+        message="出勤・退勤の両方を入力してください。"
         error_count +=1
       elsif item["in_time"].blank? && item["out_time"].present?  #出退勤2つのデータが存在するか？
-        message="出勤データを入力してください。"
+        message="出勤・退勤の両方を入力してください。"
         error_count +=1  
         
         

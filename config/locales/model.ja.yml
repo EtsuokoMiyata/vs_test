@@ -6,3 +6,5 @@ ja:
          email: メールアドレス
          password: パスワード
          password_confirmation: パスワード確認
+         fixed_work_time: 指定勤務時間
+         basic_work_time: 基本勤務時間

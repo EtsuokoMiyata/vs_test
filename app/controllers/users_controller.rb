@@ -40,13 +40,20 @@ class UsersController < ApplicationController
           @current_day = Date.strptime(current.gsub(/\//, '-')).prev_month
     
           calendar #1か月分のカレンダー
-          
         elsif params[:button_name] == "next_month"       #次月矢印が押された時 
           first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
         
           @first_day = Date.strptime(first.gsub(/\//, '-')).next_month.beginning_of_month
           @last_day = Date.strptime(last.gsub(/\//, '-')).next_month.end_of_month
           @current_day = Date.strptime(current.gsub(/\//, '-')).next_month
+          
+          calendar #1か月分のカレンダー
+        elsif params[:button_name] == "cancel"       #編集ページのキャンセルが押された時 
+          first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
+        
+          @first_day = Date.strptime(first.gsub(/\//, '-'))
+          @last_day = Date.strptime(last.gsub(/\//, '-'))
+          @current_day = Date.strptime(current.gsub(/\//, '-'))
           
           calendar #1か月分のカレンダー
         else
