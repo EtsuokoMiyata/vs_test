@@ -1,5 +1,5 @@
 class AttendancesController < ApplicationController
-  require 'byebug'
+  #require 'byebug'
   #before_action :logged_in_user, only: [:create, :edit, :update]
   #before_action :correct_user,   only: [:create, :destroy, :edit, :update]
   #before_action :admin_user,   only: :destroy
@@ -126,6 +126,7 @@ class AttendancesController < ApplicationController
     #first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
     first=params[:first_day]
     last=params[:last_day]
+    #debugger
     @first_day = Date.strptime(first.gsub(/\//, '-'))
     @last_day = Date.strptime(last.gsub(/\//, '-'))
     #current_day = Date.strptime(current.gsub(/\//, '-'))
