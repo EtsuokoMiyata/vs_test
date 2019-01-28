@@ -188,7 +188,7 @@ class AttendancesController < ApplicationController
     
     
     attendances_params.each do |id, item|  #paramsを使って、エラーチェックをする
-      #attendance = Attendance.find(id)
+      # =>attendance = Attendance.find(id)
       #debugger
       if item["in_time"].present? && item["out_time"].blank?  #出退勤2つのデータが存在するか？
       

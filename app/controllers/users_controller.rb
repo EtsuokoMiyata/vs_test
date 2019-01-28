@@ -123,11 +123,15 @@ class UsersController < ApplicationController
    #-------------これより勤怠 基本情報画面↓-------------------
    def basic_info_edit
      @user = User.find(params[:id])
-     if @user.update_attributes(user_params)       #users/:id/basic.htmlから送信
+     #debugger
+     if user_params[:fixed_work_time].blank? || user_params[:basic_work_time].blank?
+      message="指定時間・基本時間の両方を入力してください。"
+      flash[:warning] =message
+      redirect_to basic_info_url(@user)   #基本情報に戻らせて再入力させる
+     
+     else @user.update_attributes(user_params)       #users/:id/basic.htmlから送信
       flash[:success] = "基本情報が更新されました。"
       redirect_to @user
-     else
-      redirect_to "/basic_info"    #基本情報に戻らせて再入力させる
      end
    end
    
