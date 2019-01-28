@@ -188,7 +188,7 @@ class AttendancesController < ApplicationController
     
     
     attendances_params.each do |id, item|  #paramsを使って、エラーチェックをする
-      attendance = Attendance.find(id)
+      #attendance = Attendance.find(id)
       #debugger
       if item["in_time"].present? && item["out_time"].blank?  #出退勤2つのデータが存在するか？
       
@@ -199,10 +199,10 @@ class AttendancesController < ApplicationController
         error_count +=1  
         
         
-      elsif (item["in_time"].present? || item["out_time"].present?) && attendance.today > time_to_date_J && !current_user.admin             #一般ユーザーは明日以降の編集は不可
+      #elsif (item["in_time"].present? || item["out_time"].present?) && attendance.today > time_to_date_J && !current_user.admin             #一般ユーザーは明日以降の編集は不可
       #debugger  #attendance.todayの値がおかしい　連続してエラーでたら？？
-        message = '明日以降の編集はできません。'
-        error_count +=1
+       # message = '明日以降の編集はできません。'
+        #error_count +=1
         
       elsif item[:in_time].to_s > item[:out_time].to_s  
       #出勤より退勤が早くないか？ 

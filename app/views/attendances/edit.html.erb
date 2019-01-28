@@ -41,9 +41,14 @@
           <!--曜日-->
           <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
           <th><%= atte.today.strftime("#{wd[atte.today.wday]}") %></th>
-          
-          <th><%= ff.time_field :in_time, class: "form-control" %></th>
-          <th><%= ff.time_field :out_time, class: "form-control" %></th>
+          <!-- 明日以降はフィールドを読み取り専用にする-->
+          <% if atte.today > time_to_date_J %>
+            <th><%= ff.time_field :in_time, class: "form-control", :readonly => true %></th>
+            <th><%= ff.time_field :out_time, class: "form-control", :readonly => true %></th>
+          <% else %>
+            <th><%= ff.time_field :in_time, class: "form-control" %></th>
+            <th><%= ff.time_field :out_time, class: "form-control" %></th>
+          <% end %>
           <% if  atte.out_time.nil? %>
           <th></th>
           <th></th>
