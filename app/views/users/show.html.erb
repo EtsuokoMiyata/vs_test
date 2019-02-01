@@ -85,13 +85,12 @@
       <% end %>
       </td>
       <td><%= hours_in_company(date) %></td>
+      <td><%= @attendance.remarks %></td>
       <% if date == @first_day %>
          <% hours_in_company(date) %>
          <% yestaday=0.0 %>
-          <td><% @yestaday=hours_in_company(date).to_f %></td>
+         <% @yestaday=hours_in_company(date).to_f %>
       <% else %>
-     
-      <td><% @yestaday = (hours_in_company(date).to_f + @yestaday.to_f).round(2) %></td>
       <% end %>
   </tr>
 <% end %><!--@arrey.eachの締め-->

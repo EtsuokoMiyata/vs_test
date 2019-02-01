@@ -6,7 +6,6 @@ module UsersHelper
   end
   
   
-  
     #これたぶんつかってない
     #def work_in_button(date)
       #if date == Date.today

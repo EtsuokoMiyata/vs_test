@@ -264,13 +264,13 @@ class AttendancesController < ApplicationController
     
     
     def attendance_params   #出社・退社の時のsave時用
-      params.require(:attendance).permit(:in_time, :out_time)
+      params.require(:attendance).permit(:in_time, :out_time, :remarks)
     end
     
     
     
     
     def attendances_params   #勤怠編集画面のfields_for用
-      params.permit(attendances:[:id, :in_time, :out_time, :user_id])[:attendances]
+      params.permit(attendances:[:id, :in_time, :out_time, :user_id, :remarks])[:attendances]
     end
 end
