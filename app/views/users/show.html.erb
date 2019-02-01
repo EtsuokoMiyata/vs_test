@@ -85,7 +85,13 @@
       <% end %>
       </td>
       <td><%= hours_in_company(date) %></td>
-      <td><%= @attendance.remarks %></td>
+      <!-- @attendanceがnilの場合は　備考をスキップさせる-->
+      <% if @attendance.nil? %>
+        <td></td>
+      <% else %>
+        <td><%= @attendance.remarks %></td>
+      <% end %>
+      
       <% if date == @first_day %>
          <% hours_in_company(date) %>
          <% yestaday=0.0 %>
