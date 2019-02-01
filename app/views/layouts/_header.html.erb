@@ -10,9 +10,11 @@
       <ul class="nav navbar-nav navbar-right">
         <!-- ポートフォリオ版のため削除
         <li class="now_time"><#%= "今日は、#{now_time.month}月#{now_time.day}日です。" %></li> -->
+        <% if logged_in? %>
+          <li><%= link_to "トップへ", current_user %></li>
+        <% else %>
+        <% end %>
         
-        <li><%= link_to "トップへ", root_path %></li>
-        <!-- li><%# = link_to "お気に入り", help_path %></li -->
         
         
         <% if logged_in? %>
