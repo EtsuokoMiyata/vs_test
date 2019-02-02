@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 <!-- これより勤怠表示画面の　見出しheadline始まり -->
-<table class="table table-bordered">
+<table class="table table-bordered text-center" >
   <tr>
     <th><%= link_to '←', user_path(user_id: @user.id, button_name: 'last_month',first_day: @first_day, last_day: @last_day, current_day: @current_day), class: "btn btn-primary btn-sm" %></th>
     <th><%= @current_day.strftime('%Y') %>年 <%= @current_day.strftime('%m') %>月 　時間管理表</th>
@@ -14,7 +14,7 @@
     <td>氏名：<%= @user.name %></td>
     <td>コード</td>
     <td><%= @user.id %></td>
-     <%= hidden_field_tag :id, @user.id %>
+     <%#= hidden_field_tag :id, @user.id %>
     <td>出勤日数<%= work_days %>日</td>
     <th>締日<%= @last_day.strftime("%m/%d") %></th>
   </tr>
@@ -27,12 +27,12 @@
 
 <!-- これより勤怠表示画面の　カレンダーの見出し -->
 <%= link_to "勤怠を編集", edit_attendance_path(user_id: @user.id,first_day: @first_day, last_day: @last_day, current_day: @current_day), class: "btn btn-lg btn-primary" %>
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered text-center">
   <tr>
     <th></th>
     <th></th>
-    <th colspan="3">出社</th>
-    <th colspan="3">退社</th>
+    <th colspan="3" class="text-center">出社</th>
+    <th colspan="3" class="text-center">退社</th>
     <td></td>
     <td></td>
   </tr>
@@ -41,12 +41,12 @@
     <td>曜日</td>
     <td>時</td>
     <td>分</td>
-    <th>ボタンの表示</th>
+    <th></th>
     <td>時</td>
     <td>分</td>
-    <td>ボタンの表示</td>
-    <th>在社時間</th>
-    <th>備考</th>
+    <td></td>
+    <th class="text-center">在社時間</th>
+    <th class="text-center">備考</th>
   </tr>
 
 <!-- これより勤怠表示画面の　1か月分カレンダー始まり -->
@@ -64,9 +64,9 @@
       <!-- attendannceテーブルに　一度も登録していない場合と登録済みの場合　-->
       <!-- Time.now + 32400で JSTにする -->
       <% if @attendance.nil? && date == Date.parse((Time.now + 32400).to_s) %>
-         <%= link_to '出社', attendances_path(@user, button_name: 'in_office', attendance: @attendance), method: :post, class: "btn btn-default" %>  <!-- アカウント作成しただけ -->
+         <%= link_to '出社', attendances_path(@user, button_name: 'in_office', attendance: @attendance, id: params[:id]), method: :post, class: "btn btn-default" %>  <!-- アカウント作成しただけ -->
       <% elsif date == time_to_date_J && @attendance.in_time.nil? %>
-          <%= link_to '出社', attendances_path(@user, button_name: 'in_office', attendance: @attendance), method: :post, class: "btn btn-default" %>  <!-- DB未登録 -->
+          <%= link_to '出社', attendances_path(@user, button_name: 'in_office', attendance: @attendance, id: params[:id]), method: :post, class: "btn btn-default" %>  <!-- DB未登録 -->
       <% else %>  
       <% end %>
       </td>
@@ -80,7 +80,7 @@
       <% if @attendance.nil? %>
        <!-- Time.now + 32400で JSTにする -->
       <% elsif date == Date.parse((Time.now + 32400).to_s) && @attendance.in_time.present? && @attendance.out_time.nil? %>
-        <%= link_to '退社', attendances_path(@user, button_name: 'out_office'), method: :post, class: "btn btn-default" %>     <!-- DB出社のみ登録 -->
+        <%= link_to '退社', attendances_path(@user, button_name: 'out_office',attendance: @attendance, id: params[:id]), method: :post, class: "btn btn-default" %>     <!-- DB出社のみ登録 -->
       <% else %>  
       <% end %>
       </td>
@@ -92,25 +92,27 @@
         <td><%= @attendance.remarks %></td>
       <% end %>
       
+      <!--昨日の在社時間を月初めから月末まで@yestadayに足しこんでいく -->
       <% if date == @first_day %>
          <% hours_in_company(date) %>
-         <% yestaday=0.0 %>
+         <% @yestaday= 0.0 %>
          <% @yestaday=hours_in_company(date).to_f %>
       <% else %>
+          <% @yestaday = @yestaday.to_f + hours_in_company(date).to_f %>
       <% end %>
   </tr>
 <% end %><!--@arrey.eachの締め-->
   <tr>
     <td></td>
     <!-- 総合勤務時間の表示　出勤日数×基本時間　-->
-    <td>総合勤務時間<%= work_days * (@user.basic_work_time.hour.to_i  + (@user.basic_work_time.min.to_f / 60).floor(2)) %></td>
+    <td class="text-center">総合勤務時間<%= work_days * (@user.basic_work_time.hour.to_i  + (@user.basic_work_time.min.to_f / 60).floor(2)) %></td>
     <td></td>
     <td></td>
     <th></th>
     <td></td>
     <td></td>
     <td></td>
-    <th>在社時間合計<%= @yestaday %></th>
+    <th class="text-center">在社時間合計<%= @yestaday %></th>
     <th></th>
   </tr>
 </table>

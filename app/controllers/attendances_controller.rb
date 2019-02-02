@@ -11,9 +11,9 @@ class AttendancesController < ApplicationController
 
   #出勤ボタンが押されたら　DBに登録する
   def create
-    #★しらべたらparams[:id]とparams[:format]の値が同じだった
+    #★しらべたらparams[:id]とparams[:format]の値が同この時点では同じだが、attendnnce  showではarams[:format]しかなくidはない
     #★params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
-    
+    #debugger
     if params[:button_name] == "in_office"    #ボタンが出社の場合
     
       #mk_time(Time.new)     #秒以下を00で表示させる
@@ -38,12 +38,13 @@ class AttendancesController < ApplicationController
     
     if attendance.save
       #debugger
-      flash[:success] = "登録されました。"
+      #flash[:success] = "登録されました。"
       #@attendance.in_time      #test 値は入っているが、redirect_toで渡せない
       #debugger
       #redirect_to controller: 'users', action: 'show', params.permit({id: :id, in: @attendance.in_time}).to_h    #test
       #redirect_to controller: 'users', action: 'show', id: params[:id]   #コントローラ　users アクションshow
       redirect_to controller: 'attendances', action: 'show', id: params[:id]   #コントローラ　attendances アクションshow
+      #render "show"
       
       
     else
