@@ -14,7 +14,7 @@
     <td>氏名：<%= @user.name %></td>
     <td>コード</td>
     <td><%= @user.id %></td>
-     <%#= hidden_field_tag :id, @user.id %><!--これが邪魔してparams[:format]ができてしまった
+     <%#= hidden_field_tag :id, @user.id %><!--これが邪魔してparams[:format]ができてしまった-->
     <td>出勤日数<%= work_days %>日</td>
     <th>締日<%= @last_day.strftime("%m/%d") %></th>
   </tr>
