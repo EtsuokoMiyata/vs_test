@@ -11,10 +11,9 @@ class AttendancesController < ApplicationController
 
   #出勤ボタンが押されたら　DBに登録する
   def create
-    params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
-    #@user = User.find_by(id: params[:id])                                 #test
-    #@attendance=Attendance.new(in_time: Time.new)                         #test user_idはいらなかった
-    #debugger
+    #★しらべたらparams[:id]とparams[:format]の値が同じだった
+    #★params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
+    
     if params[:button_name] == "in_office"    #ボタンが出社の場合
     
       #mk_time(Time.new)     #秒以下を00で表示させる
