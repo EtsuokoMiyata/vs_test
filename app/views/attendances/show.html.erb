@@ -85,6 +85,13 @@
       <% end %>
       </td>
       <td><%= hours_in_company(date) %></td>
+       <!-- @attendanceがnilの場合は　備考をスキップさせる-->
+      <% if @attendance.nil? %>
+        <td></td>
+      <% else %>
+        <td><%= @attendance.remarks %></td>
+      <% end %>
+      
      <% if date == @first_day %>
          <% hours_in_company(date) %>
          <% yestaday=0.0 %>
@@ -94,7 +101,7 @@
       <td><% @yestaday = (hours_in_company(date).to_f + @yestaday.to_f).round(2) %></td>
       <% end %>
   </tr>
-<% end %>
+<% end %><!--@arrey.eachの締め-->
   <tr>
     <td></td>
     <!-- 総合勤務時間の表示　出勤日数×基本時間　-->

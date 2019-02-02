@@ -13,6 +13,7 @@
         <% if logged_in? %>
           <li><%= link_to "トップへ", current_user %></li>
         <% else %>
+           <li><%= link_to "トップへ", root_path %></li>
         <% end %>
         
         
