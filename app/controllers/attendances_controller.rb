@@ -13,7 +13,6 @@ class AttendancesController < ApplicationController
   def create
     #★しらべたらparams[:id]とparams[:format]の値が同この時点では同じだが、attendnnce  showではarams[:format]しかなくidはない
     #★params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
-    #debugger
     if params[:button_name] == "in_office"    #ボタンが出社の場合
     
       #mk_time(Time.new)     #秒以下を00で表示させる
@@ -126,7 +125,6 @@ class AttendancesController < ApplicationController
   def edit
     @user=User.find(params[:id])
     @attendance = Attendance.find(params[:id])
-    #debugger
      
    
     
@@ -139,33 +137,17 @@ class AttendancesController < ApplicationController
     @last_day = Date.strptime(last.gsub(/\//, '-'))
     @current_day = Date.strptime(current.gsub(/\//, '-'))
     
-    #@attendances=Array.new
-    #@attendances=Attendance.where({user_id: params[:id], today: @first_day...@last_day}) #1か月間の出勤データを配列にする
-    #カレンダーの日付が配列になかったら、today:に カレンダー日付を入れる
-   
-   
-   
-   
-   
+    
     (@first_day..@last_day).each do |date|  #出退勤データのない日を登録する
     attendance=Attendance.find_by({user_id: params[:id], today: date}) #find_byは一件のみ表示なのでバグがわかりずらい
       #if !Attendance.where({user_id: params[:id], today: date}).any?     #モデルが存在するかどうか？
-      
       if attendance.nil?
-      
           attendance=Attendance.new(user_id: @user.id, today: date)
-          
           attendance.save
       else
-        
       end      #if文締め
-
-      #1か月間の出勤データを配列にする
-      
-      #debugger
-      end  #each文締め
-      @attendances=Attendance.where({user_id: params[:id], today: @first_day..@last_day}).order(today: :asc)
-  #debugger
+    end  #each文締め
+      @attendances=Attendance.where({user_id: params[:id], today: @first_day..@last_day}).order(today: :asc)  #1か月間の出勤データを配列にする
   end
  
     
@@ -177,28 +159,24 @@ class AttendancesController < ApplicationController
   end
   
  #勤怠更新アクション---------------------------------------------------- 
-  def attendance_update_all   #とりあえず、更新できるかどうか？？
-  @user = User.find_by(id: params[:user_id]) #ユーザー情報を取得
-  error_count = 0
-  message=""
+  def attendance_update_all   
+    @user = User.find_by(id: params[:user_id]) #ユーザー情報を取得
+    error_count = 0
+    message=""
   
     first=params[:first_day]
     last=params[:last_day]
     current=params[:current_day]
     #@current_day=time_to_date_J 
     
-    #debugger
     @first_day = Date.strptime(first.gsub(/\//, '-')) #正規表現で　"2018/01/03"→"2017-09-03"にする
     @last_day = Date.strptime(last.gsub(/\//, '-'))
     @current_day = Date.strptime(current.gsub(/\//, '-'))
-    #debugger
-    
     
     attendances_params.each do |id, item|  #paramsを使って、エラーチェックをする
       # =>attendance = Attendance.find(id)
-      #debugger
+
       if item["in_time"].present? && item["out_time"].blank?  #出退勤2つのデータが存在するか？
-      
         message="出勤・退勤の両方を入力してください。"
         error_count +=1
       elsif item["in_time"].blank? && item["out_time"].present?  #出退勤2つのデータが存在するか？
@@ -206,35 +184,31 @@ class AttendancesController < ApplicationController
         error_count +=1  
         
         
-      #elsif (item["in_time"].present? || item["out_time"].present?) && attendance.today > time_to_date_J && !current_user.admin             #一般ユーザーは明日以降の編集は不可
-      #debugger  #attendance.todayの値がおかしい　連続してエラーでたら？？
-       # message = '明日以降の編集はできません。'
+        #elsif (item["in_time"].present? || item["out_time"].present?) && attendance.today > time_to_date_J && !current_user.admin             #一般ユーザーは明日以降の編集は不可
+        #debugger  #attendance.todayの値がおかしい　連続してエラーでたら？？
+        # message = '明日以降の編集はできません。'
         #error_count +=1
         
       elsif item[:in_time].to_s > item[:out_time].to_s  
-      #出勤より退勤が早くないか？ 
+        #出勤より退勤が早くないか？ 
         message = '出勤時間より退勤時間が早いデータは更新できません。'
         error_count +=1
       end  #if文の締め  
     end #each文の締め
-  
-  
-  if error_count > 0
     
-    flash[:warning] =message
-    redirect_to edit_attendance_url(@user, first_day: @first_day, last_day: @last_day,current_day: @current_day, button_name: 'cancel')
-    #debugger
     
-  else
-    attendances_params.each do |id,item|
-      attendance = Attendance.find(id)
-      attendance.update_attributes(item)
-    end  #each文締め
-    flash[:success] = '勤怠時間を更新しました'
-    redirect_to @user
-  end    #if文締め
-  
-   
+    if error_count > 0
+      flash[:warning] =message
+      redirect_to edit_attendance_url(@user, first_day: @first_day, last_day: @last_day,current_day: @current_day, button_name: 'cancel')
+    else
+      attendances_params.each do |id,item|
+        attendance = Attendance.find(id)
+        attendance.update_attributes(item)
+      end  #each文締め
+      flash[:success] = '勤怠時間を更新しました'
+      redirect_to @user
+    end    #if文締め
+    
   end
   
   

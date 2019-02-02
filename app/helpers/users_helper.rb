@@ -5,14 +5,7 @@ module UsersHelper
     Date.parse((Time.now + 32400).to_s)
   end
   
-  
-    #これたぶんつかってない
-    #def work_in_button(date)
-      #if date == Date.today
-       #@work_in_button = raw('<button type="button" class="btn btn-default">出社</button>')
-      #else
-      #end
-    #end
+    
     
     # 以下　user/showから　呼び出される
     def match_in_hour(date)    #カレンダーの日付とtodyカラムが一致 かつ　in_timeが存在したらを表示
@@ -77,7 +70,7 @@ module UsersHelper
     end
   end
    
-  #@total_hours_in_company = 0      #クラスインスタンス変数
+  
   #在社時間の合計
   def total_hours_in_company(hours)
     hours
@@ -103,14 +96,7 @@ module UsersHelper
     end
   end   
     
-   #def edit_form_for(date)    #勤怠編集ページのform_forにわたす
-    #@attendance=Attendance.find_by({user_id: params[:id], today: date}) 
-    #@time.time      #@attendanceがnilの場合の初期値0設定
-    #debugger
-   #end    
-    
-    
-    
+   
     
     
     

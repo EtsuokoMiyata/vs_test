@@ -5,10 +5,14 @@
   <% @user = User.find_by(id: params[:id]) %>
   <%# @user.id = params[:id] %>
   <!-- 下記　値を確認するために　一時的に表示 -->
-   @user.id <%= @user.id %> 氏名：<%= @user.name %>  params id：<%= params[:id] %>
+  <!-- @user.id  -->
+  <%#= @user.id %>
+  <!-- 氏名：-->
+  <%#= @user.name %>
+  <!--params id：-->
+  <%#= params[:id] %>
+   
 <div class="row">
-
-
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user, url:basic_info_edit_path, method: :post) do |f| %>
       <%= hidden_field_tag :id, @user.id %>

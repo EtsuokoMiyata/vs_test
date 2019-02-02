@@ -30,8 +30,8 @@ end
 #end
 
 # リレーションシップ
-users = User.all                                     #勤怠Bに不要かも
-user  = users.first                                  #勤怠Bに不要かも
+#users = User.all                                     #勤怠Bに不要かも
+#user  = users.first                                  #勤怠Bに不要かも
 #following = users[2..50]                             #勤怠Bに不要
 #followers = users[3..40]                             #勤怠Bに不要
 #following.each { |followed| user.follow(followed) }  #勤怠Bに不要
