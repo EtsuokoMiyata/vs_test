@@ -64,9 +64,9 @@
       <!-- attendannceテーブルに　一度も登録していない場合と登録済みの場合　-->
       <!-- Time.now + 32400で JSTにする -->
       <% if @attendance.nil? && date == Date.parse((Time.now + 32400).to_s) %>
-         <%= link_to '出社', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>  <!-- アカウント作成しただけ -->
+         <%= link_to '出社', attendances_path(@user, button_name: 'in_office', attendance: @attendance), method: :post, class: "btn btn-default" %>  <!-- アカウント作成しただけ -->
       <% elsif date == time_to_date_J && @attendance.in_time.nil? %>
-          <%= link_to '出社', attendances_path(@user, button_name: 'in_office'), method: :post, class: "btn btn-default" %>  <!-- DB未登録 -->
+          <%= link_to '出社', attendances_path(@user, button_name: 'in_office', attendance: @attendance), method: :post, class: "btn btn-default" %>  <!-- DB未登録 -->
       <% else %>  
       <% end %>
       </td>

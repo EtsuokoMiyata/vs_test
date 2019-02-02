@@ -14,11 +14,17 @@ class AttendancesController < ApplicationController
     params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
     #@user = User.find_by(id: params[:id])                                 #test
     #@attendance=Attendance.new(in_time: Time.new)                         #test user_idはいらなかった
-    
+    #debugger
     if params[:button_name] == "in_office"    #ボタンが出社の場合
+    
       #mk_time(Time.new)     #秒以下を00で表示させる
-      attendance=Attendance.new({user_id: params[:id], in_time: mk_time(Time.new), today: time_to_date_J}) #書き込みできた #Date.todayをJSTにするためにTime.nowをつかい　todyカラムはJSTとなる
-      #attendance.in_time
+      # attendanceがnilの場合newで　他はfind_by
+      if params[:attendance].nil?
+        attendance=Attendance.new({user_id: params[:id], in_time: mk_time(Time.new), today: time_to_date_J}) #書き込みできた #Date.todayをJSTにするためにTime.nowをつかい　todyカラムはJSTとなる
+      else
+        attendance=Attendance.find_by({user_id: params[:id], today: time_to_date_J})
+        attendance.update_attributes(in_time: mk_time(Time.new)) #出社時刻を登録
+      end
       #debugger
     elsif params[:button_name] == "out_office"  #ボタンが退社の場合
       #attendance=Attendance.find_by({user_id: params[:id], today: Date.today})
@@ -32,6 +38,7 @@ class AttendancesController < ApplicationController
     
     
     if attendance.save
+      #debugger
       flash[:success] = "登録されました。"
       #@attendance.in_time      #test 値は入っているが、redirect_toで渡せない
       #debugger
