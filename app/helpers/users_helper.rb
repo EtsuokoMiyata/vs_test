@@ -59,6 +59,7 @@ module UsersHelper
    
    
    #在社時間の計算
+   #例　1/1の出退勤時間を、1/30に総務が訂正すると　時間数がおおくなってしまうような気がする。
   def hours_in_company(date)
     @attendance=Attendance.find_by({user_id: params[:id], today: date}) 
     if @attendance.nil?   #アカウントを登録しただけの場合

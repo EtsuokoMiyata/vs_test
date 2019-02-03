@@ -56,8 +56,8 @@
     <td><%= date.strftime("%-m/%-d") %></th>
         <% wd = ["日", "月", "火", "水", "木", "金", "土"] %>
     <td><%= date.strftime("#{wd[date.wday]}") %></th>
-    <td><%= att_match_in_hour(date) %></td>
-    <td><%= att_match_in_min(date) %></td>
+    <td><%= match_in_hour(date) %></td>
+    <td><%= match_in_min(date) %></td>
     <td>
    
       <!-- 本日の欄に出社ボタン表示　-->
@@ -71,8 +71,8 @@
       <% end %>
       </td>
       
-      <td><%= att_match_out_hour(date) %></td>
-      <td><%= att_match_out_min(date) %></td>
+      <td><%= match_out_hour(date) %></td>
+      <td><%= match_out_min(date) %></td>
    
       <td> 
       <!-- 本日の欄に退社ボタン表示　-->
@@ -116,11 +116,7 @@
     <th></th>
   </tr>
 </table>
-<%#= @at.in_time %>
-<%# debugger %>
-<%#= @at.id %>
-<%= @user.id %>
-<%= @mktime %>
+
 
 
 

@@ -4,7 +4,7 @@ require 'time'
  
   
   
-  
+  #出勤時間のHが表示されない不具合あったので、att_match_in_hour(date)→match_in_hour(date)を呼び出すことにした
   def att_match_in_hour(date)    #カレンダーの日付とtodyカラムが一致 かつ　in_timeが存在したらを表示
     @attendance=Attendance.find_by({user_id: params[:id], today: date})  #dateと比較したかったので、ヘルパーにもってきた
     if  @attendance.nil?

@@ -10,6 +10,10 @@ class AttendancesController < ApplicationController
   include AttendancesHelper   #ヘルパーを読めるようにする
 
   #出勤ボタンが押されたら　DBに登録する
+  #DBカラムの説明　
+  #:todayは、日本時間に換算して日付のみ登録
+  #:in_time :out_timeは　ボタンを押したときのアメリカ時間のHとMを取出している
+  
   def create
     #★しらべたらparams[:id]とparams[:format]の値が同この時点では同じだが、attendnnce  showではarams[:format]しかなくidはない
     #★params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
