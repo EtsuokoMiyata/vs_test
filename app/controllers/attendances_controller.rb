@@ -163,7 +163,7 @@ class AttendancesController < ApplicationController
   end
   
  #勤怠更新アクション---------------------------------------------------- 
-  def attendance_update_all   
+  def attendance_update_all 
     @user = User.find_by(id: params[:user_id]) #ユーザー情報を取得
     error_count = 0
     message=""
@@ -210,7 +210,8 @@ class AttendancesController < ApplicationController
         attendance.update_attributes(item)
       end  #each文締め
       flash[:success] = '勤怠時間を更新しました'
-      redirect_to @user
+      #redirect_to @user
+      redirect_to user_url(@user, first_day: @first_day, last_day: @last_day,current_day: @current_day, button_name: 'edit',user_id: @user.id) 
     end    #if文締め
     
   end

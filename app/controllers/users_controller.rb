@@ -43,7 +43,8 @@ class UsersController < ApplicationController
           @current_day = Date.strptime(current.gsub(/\//, '-')).next_month
           
           calendar #1か月分のカレンダー
-        elsif params[:button_name] == "cancel"       #編集ページのキャンセルが押された時 
+        #attendance attendance_update_allアクションの redirect_to user_urlに params[:button_name] == "edit" 追加対応
+        elsif params[:button_name] == "cancel"  ||  params[:button_name] == "edit"     #編集ページのキャンセルが押された時 
           first, last, current = date_henkan    #正規表現で　"2018/01/03"→"2017-09-03"にする
         
           @first_day = Date.strptime(first.gsub(/\//, '-'))
