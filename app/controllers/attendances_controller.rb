@@ -63,8 +63,19 @@ class AttendancesController < ApplicationController
     #@attendance_button=Attendance.find_by({user_id: params[:id], today: Date.today})    #出社退社のボタンの表示用
     #@attendance=Attendance.find_by({user_id: params[:id]})                        #出社時間と退社時間表示用
     
+     #一般ユーザログイン時に　アドレスバーに直接id打たれても遷移しないように
+    if current_user.admin?
+    else
+      if current_user.id == params[:id].to_i
+      else
+        redirect_to login_path
+        flash[:warning]="アクセス権がありません。"
+      end
+    end
+    
+    
    
-    @at = @user.attendances.find_by(user_id: params[:id], today: Date.today)  #test
+    #@at = @user.attendances.find_by(user_id: params[:id], today: Date.today)  #test
     #@microposts = @user.microposts.paginate(page: params[:page])
     
     if params[:button_name] == nil

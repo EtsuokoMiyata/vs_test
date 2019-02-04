@@ -18,6 +18,19 @@ class UsersController < ApplicationController
     #@attendance=Attendance.find_by({user_id: params[:id], today: Date.today})    #出社退社のボタンの表示用　ヘルパーに移動
     #@attendance=Attendance.find_by({user_id: params[:id]})                        #出社時間と退社時間表示用
     
+    #一般ユーザログイン時に　アドレスバーに直接id打たれても遷移しないように
+    if current_user.admin?
+    else
+      if current_user.id == params[:id].to_i
+      else
+        redirect_to login_path
+        flash[:warning]="アクセス権がありません。"
+      end
+    end
+        
+    
+    
+    
     
     if params[:button_name] == nil
       @current_day = time_to_date_J                         #現在の日時を取得     #Date.todayをJSTにするためにTime.nowをつかう
