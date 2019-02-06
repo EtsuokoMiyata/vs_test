@@ -15,6 +15,7 @@ class AttendancesController < ApplicationController
   #:in_time :out_timeは　ボタンを押したときのアメリカ時間のHとMを取出している
   
   def create
+    #debugger
     #★しらべたらparams[:id]とparams[:format]の値が同この時点では同じだが、attendnnce  showではarams[:format]しかなくidはない
     #★params[:id] = params[:format] #すでにURLに:idが含まれているので　:formatが使われてしまうのかも？
     if params[:button_name] == "in_office"    #ボタンが出社の場合
@@ -46,7 +47,11 @@ class AttendancesController < ApplicationController
       #debugger
       #redirect_to controller: 'users', action: 'show', params.permit({id: :id, in: @attendance.in_time}).to_h    #test
       #redirect_to controller: 'users', action: 'show', id: params[:id]   #コントローラ　users アクションshow
-      redirect_to controller: 'attendances', action: 'show', id: params[:id]   #コントローラ　attendances アクションshow
+      
+      #↓アテンダンスshowアクションに飛ぶ
+      #redirect_to controller: 'attendances', action: 'show', id: params[:id]   #コントローラ　attendances アクションshow
+      #★↓アテンダンスshowが不要になるよう、user showに飛ぶ(これでattendance showアクションは不要になった)
+      redirect_to controller: 'users', action: 'show', id: params[:id]
       #render "show"
       
       

@@ -9,7 +9,14 @@ class UsersController < ApplicationController
   include UsersHelper   #ヘルパーを読めるようにする
   
   def index
-     @users = User.paginate(page: params[:page])
+    #一般ユーザログイン時に　アドレスバーに直接id打たれても遷移しないように
+    if current_user.admin?
+    else
+        redirect_to login_path
+        flash[:warning]="アクセス権がありません。"
+    end
+    
+    @users = User.paginate(page: params[:page])
   end
   
   #-------------これより勤怠表示画面↓-------------------
