@@ -66,6 +66,9 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    debase (0.2.2)
+      debase-ruby_core_source (>= 0.10.2)
+    debase-ruby_core_source (0.10.4)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dry-inflector (0.1.2)
@@ -348,6 +351,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    ruby-debug-ide (0.6.1)
+      rake (>= 0.8.1)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     sass (3.6.0)
@@ -411,6 +416,7 @@ DEPENDENCIES
   byebug (= 9.0.6)
   carrierwave (= 1.2.2)
   coffee-rails (= 4.2.2)
+  debase
   faker (= 1.7.3)
   fog (= 1.42)
   guard (= 2.13.0)
@@ -426,6 +432,7 @@ DEPENDENCIES
   rails (= 5.1.6)
   rails-controller-testing (= 1.0.2)
   rails-i18n (~> 5.1)
+  ruby-debug-ide
   sass-rails (= 5.0.6)
   spring (= 2.0.2)
   spring-watcher-listen (= 2.0.1)
@@ -437,4 +444,4 @@ DEPENDENCIES
   will_paginate (= 3.1.6)
 
 BUNDLED WITH
-   1.16.3
+   1.17.3
